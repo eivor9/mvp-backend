@@ -13,16 +13,36 @@ DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS metrics;
 
 CREATE TABLE users (
-
+    id SERIAL PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    job_title TEXT,
+    is_mentee BOOLEAN,
+    is_mentor BOOLEAN,
+    signup_date TIMESTAMP
 );
 CREATE TABLE categories (
-
+    id SERIAL PRIMARY KEY,
+    name TEXT
 );
 CREATE TABLE subcategories (
-
+    id SERIAL PRIMARY KEY,
+    category_id INTEGER REFERENCES categories (id) ON DELETE CASCADE,
+    name TEXT
 );
 CREATE TABLE connections (
-
+    id SERIAL PRIMARY KEY,
+    mentor_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    mentee_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES categories (id) ON DELETE CASCADE,
+    subcategory_id INTEGER REFERENCES subcategories (id) ON DELETE CASCADE,
+    metric_one INTEGER,
+    metric_two INTEGER,
+    metric_three INTEGER,
+    metric_four INTEGER,
+    metric_five INTEGER,
 );
 CREATE TABLE assignments (
     id SERIAL PRIMARY KEY, 
