@@ -25,15 +25,31 @@ CREATE TABLE connections (
 
 );
 CREATE TABLE assignments (
-
+    id SERIAL PRIMARY KEY, 
+    name TEXT,
+    body TEXT,
+    target_date TIMESTAMP,
+    is_submitted BOOLEAN,
+    submission TEXT,
+    rating INTEGER CHECK (rating >= 0 AND rating <= 100),
+    FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE CASCADE
 );
 CREATE TABLE conversations (
-
+    id SERIAL PRIMARY KEY,
+    FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE CASCADE,
+    FOREIGN KEY (mentor_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (mentee_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE messages (
-
+    id SERIAL PRIMARY KEY,
+    time_sent TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE metrics (
-
+    id SERIAL PRIMARY KEY, 
+    name TEXT,
+    FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE CASCADE,
+    progress INTEGER CHECK (rating >= 0 AND rating <= 100)
 );
 
