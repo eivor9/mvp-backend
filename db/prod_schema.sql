@@ -56,20 +56,20 @@ CREATE TABLE assignments (
 );
 CREATE TABLE conversations (
     id SERIAL PRIMARY KEY,
-    FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE CASCADE,
-    FOREIGN KEY (mentor_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (mentee_id) REFERENCES users(id) ON DELETE CASCADE
+    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
+    mentor_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    mentee_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     time_sent TIMESTAMP,
-    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE
+    sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    recipient_id  INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE metrics (
     id SERIAL PRIMARY KEY, 
     name TEXT,
-    FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE CASCADE,
+    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
     progress INTEGER CHECK (rating >= 0 AND rating <= 100)
 );
 
