@@ -7,10 +7,10 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS subcategories;
 DROP TABLE IF EXISTS connections;
+DROP TABLE IF EXISTS metrics;
 DROP TABLE IF EXISTS assignments;
 DROP TABLE IF EXISTS conversations;
 DROP TABLE IF EXISTS messages;
-DROP TABLE IF EXISTS metrics;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -42,17 +42,24 @@ CREATE TABLE connections (
     metric_two INTEGER,
     metric_three INTEGER,
     metric_four INTEGER,
-    metric_five INTEGER,
+    metric_five INTEGER
+);
+CREATE TABLE metrics (
+    id SERIAL PRIMARY KEY, 
+    name TEXT,
+    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
+    progress INTEGER CHECK (progress >= 0 AND progress <= 100)
 );
 CREATE TABLE assignments (
     id SERIAL PRIMARY KEY, 
     name TEXT,
     body TEXT,
+    metric_id INTEGER REFERENCES metrics(id) ON DELETE CASCADE,
     target_date TIMESTAMP,
     is_submitted BOOLEAN,
     submission TEXT,
     rating INTEGER CHECK (rating >= 0 AND rating <= 100),
-    FOREIGN KEY (connection_id) REFERENCES connections(id) ON DELETE CASCADE
+    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE
 );
 CREATE TABLE conversations (
     id SERIAL PRIMARY KEY,
@@ -62,14 +69,10 @@ CREATE TABLE conversations (
 );
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
+    body TEXT,
     time_sent TIMESTAMP,
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     recipient_id  INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
-CREATE TABLE metrics (
-    id SERIAL PRIMARY KEY, 
-    name TEXT,
-    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
-    progress INTEGER CHECK (rating >= 0 AND rating <= 100)
-);
+
 
