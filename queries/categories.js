@@ -1,8 +1,9 @@
-const db = require("../db/dbConfig.js");
+// queries/categories.js
+
+const db = require('../db/dbConfig.js');
 
 const getAllCategories = async () => {
   try {
-    
   } catch (error) {
     return error;
   }
@@ -10,7 +11,6 @@ const getAllCategories = async () => {
 
 const getCategory = async () => {
   try {
-    
   } catch (error) {
     return error;
   }

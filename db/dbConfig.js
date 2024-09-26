@@ -1,4 +1,6 @@
 // http://vitaly-t.github.io/pg-promise/module-pg-promise.html
+// db/dbConfig.js
+
 const pgp = require("pg-promise")();
 require("dotenv").config();
 

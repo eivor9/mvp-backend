@@ -1,3 +1,5 @@
+-- db/schema.sql
+
 DROP DATABASE IF EXISTS mvp_dev;
 CREATE DATABASE mvp_dev;
 

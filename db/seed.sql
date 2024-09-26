@@ -1,3 +1,4 @@
+-- db/seed.sql
 \c mvp_dev;
 
 INSERT INTO users (first_name, last_name, email, password, job_title, is_mentee, is_mentor, signup_date) VALUES

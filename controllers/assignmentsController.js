@@ -1,3 +1,5 @@
+// controllers/assignmentsController.js
+
 // DEPENDENCIES
 const express = require("express");
 const assignments = express.Router({ mergeParams: true });

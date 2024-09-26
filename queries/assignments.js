@@ -1,3 +1,5 @@
+// queries/assignments.js
+
 const db = require("../db/dbConfig.js");
 
 const getAllAssignments = async () => {
