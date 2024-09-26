@@ -9,7 +9,7 @@ const cn =
       port: PG_PORT,
       database: PG_DATABASE,
       user: PG_USER,
-      // password: PG_PASSWORD,
+      password: PG_PASSWORD,
     };
 
 const db = pgp(cn);
