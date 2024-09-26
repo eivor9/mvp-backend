@@ -5,7 +5,7 @@ const db = require("../db/dbConfig.js");
 const getAllMetrics = async () => {
   try {
     const allMetrics = await db.any("SELECT * FROM metrics");
-    console.log(allMetrics);
+    // console.log(allMetrics);
     return allMetrics;
   } catch (error) {
     return error;
@@ -15,7 +15,7 @@ const getAllMetrics = async () => {
 const getMetric = async (id) => {
   try {
     const metrics = await db.one("SELECT * FROM metrics WHERE id=$1", id);
-    // console.log(metrics);
+    console.log(metrics);
     return metrics;
   } catch (error) {
     return error;

@@ -21,7 +21,8 @@ metrics.get("/all", async (req, res) => {
 
 // SHOW
 metrics.get("/:id", async (req, res) => {
-  const metric = await getMetric();
+  const { id } = req.params;
+  const metric = await getMetric(id);
   if (metric) {
     res.json(metric);
   } else {
