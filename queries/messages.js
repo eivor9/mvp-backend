@@ -15,7 +15,7 @@ const getAllMessages = async (conversation_id) => {
 };
 
 // Get one specific message
-const getMessage = async (id) => {
+const getOneMessage = async (id) => {
   try {
     const message = await db.one(
       'SELECT * FROM messages WHERE id=$1',
@@ -74,7 +74,7 @@ const updateMessage = async (id, updatedMessage) => {
 
 module.exports = {
   getAllMessages,
-  getMessage,
+  getOneMessage,
   createMessage,
   deleteMessage,
   updateMessage,
