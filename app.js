@@ -14,23 +14,18 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-/////////////////////////////////////
-// REMOVE AFTER SUCCESSFUL DEPLOYMENT
-/////////////////////////////////////
-const db = require("./db/dbConfig.js");
+// USERS
+const usersController = require("./controllers/usersController.js");
+app.use("/users", usersController);
 
-app.get("/test", async (req, res) => {
-  try {
-    const allDays = await db.any("SELECT * FROM test");
-    res.json(allDays);
-  } catch (err) {
-    res.json(err);
-  }
+// CATEGORIES
+const categoriesController = require("./controllers/categoriesController.js");
+app.use("/categories", categoriesController);
+
+// 404 PAGE
+app.get("*", (req, res) => {
+  res.status(404).send("Page not found");
 });
-
-/////////////////////////////////////
-// REMOVE AFTER SUCCESSFUL DEPLOYMENT
-/////////////////////////////////////
 
 // EXPORT
 module.exports = app;
