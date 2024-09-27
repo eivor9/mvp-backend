@@ -30,6 +30,6 @@ INSERT INTO conversations (connection_id, mentor_id, mentee_id) VALUES
 (1, 2, 1)
 ;
 
-INSERT INTO messages (body, time_sent, sender_id, recipient_id) VALUES
-('Glad to be connected', NULL, 1, 2)
+INSERT INTO messages (body, time_sent, sender_id, recipient_id, conversation_id) VALUES
+('Glad to be connected', NULL, 1, 2, 1)
 ;

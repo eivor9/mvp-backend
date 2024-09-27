@@ -40,7 +40,8 @@ metrics.post('/', async (req, res) => {
 
 // DELETE
 metrics.delete('/:id', async (req, res) => {
-  const deletedMetric = await deleteMetric();
+  const { id } = req.params;
+  const deletedMetric = await deleteMetric(id);
   if (deletedMetric) {
     res.json(deletedMetric);
   } else {

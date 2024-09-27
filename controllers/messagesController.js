@@ -5,7 +5,7 @@ const express = require('express');
 const messages = express.Router({ mergeParams: true });
 const {
   getAllMessages,
-  getMessage,
+  getOneMessage,
   createMessage,
   deleteMessage,
   updateMessage,
@@ -27,7 +27,7 @@ messages.get('/', async (req, res) => {
 // SHOW - Get one specific message
 messages.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const message = await getMessage(id);
+  const message = await getOneMessage(id);
   if (message.id) {
     res.status(200).json(message);
   } else {

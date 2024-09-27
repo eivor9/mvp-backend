@@ -72,6 +72,7 @@ CREATE TABLE conversations (
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     body TEXT,
+    conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
     time_sent TIMESTAMP,
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     recipient_id  INTEGER REFERENCES users(id) ON DELETE CASCADE

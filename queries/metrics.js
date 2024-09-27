@@ -43,7 +43,7 @@ const createMetric = async (metric) => {
 
 const deleteMetric = async (id) => {
   try {
-    const deletedMetric = await db.any(
+    const deletedMetric = await db.one(
       'DELETE FROM metrics WHERE id=$1 RETURNING *',
       id
     );
