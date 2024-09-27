@@ -61,7 +61,7 @@ const deleteAssignment = async (id) => {
   }
 };
 
-const updateAssignment = async (assignment) => {
+const updateAssignment = async (id, assignment) => {
   try {
       const updatedAssignment = await db.one("UPDATE assignments SET name=$1, body=$2, metric_id=$3, target_date=$4, is_submitted=$5, submission=$6, rating=$7, connection_id=$8 WHERE id=$9 RETURNING *",
         [
@@ -73,7 +73,7 @@ const updateAssignment = async (assignment) => {
             assignment.submission,
             assignment.rating,
             assignment.connection_id,
-            assignment.id
+            id
         ]
         );
         return updatedAssignment;
