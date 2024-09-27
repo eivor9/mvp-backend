@@ -22,8 +22,8 @@ conversations.get('/', async (req, res) => {
     res.status(200).json(conversationsList);
   } else {
     res
-      .status(500)
-      .json({ error: 'No conversations found or server error' });
+      .status(404)
+      .json({ error: 'Conversations not found' });
   }
 });
 
@@ -35,8 +35,8 @@ conversations.get('/:id', async (req, res) => {
     res.status(200).json(conversation);
   } else {
     res
-      .status(500)
-      .json({ error: 'Conversation not found or server error' });
+      .status(404)
+      .json({ error: 'Conversation not found' });
   }
 });
 

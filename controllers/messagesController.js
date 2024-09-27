@@ -19,8 +19,8 @@ messages.get('/', async (req, res) => {
     res.status(200).json(messagesList);
   } else {
     res
-      .status(500)
-      .json({ error: 'No messages found or server error' });
+      .status(404)
+      .json({ error: 'No messages found' });
   }
 });
 
@@ -32,8 +32,8 @@ messages.get('/:id', async (req, res) => {
     res.status(200).json(message);
   } else {
     res
-      .status(500)
-      .json({ error: 'Message not found or server error' });
+      .status(404)
+      .json({ error: 'Message not found' });
   }
 });
 
