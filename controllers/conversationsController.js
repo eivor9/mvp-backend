@@ -4,7 +4,7 @@
 const express = require('express');
 const conversations = express.Router({ mergeParams: true });
 const {
-  getConversations,
+  getAllConversations,
   getOneConversation,
   createConversation,
   deleteConversation,
@@ -17,7 +17,7 @@ conversations.use('/:conversation_id/messages', messagesController);
 // INDEX - Get all conversations for a connection
 conversations.get('/', async (req, res) => {
   const { connection_id } = req.params;
-  const conversationsList = await getConversations(connection_id);
+  const conversationsList = await getAllConversations(connection_id);
   if (conversationsList.length) {
     res.status(200).json(conversationsList);
   } else {
