@@ -2,7 +2,7 @@
 const db = require('../db/dbConfig.js');
 
 // Get all conversations for a specific connection
-const getConversations = async (connection_id) => {
+const getAllConversations = async (connection_id) => {
   try {
     const conversations = await db.any(
       'SELECT * FROM conversations WHERE connection_id=$1',
@@ -58,7 +58,7 @@ const deleteConversation = async (id) => {
 };
 
 module.exports = {
-  getConversations,
+  getAllConversations,
   getOneConversation,
   createConversation,
   deleteConversation,
