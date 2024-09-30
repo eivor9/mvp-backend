@@ -33,3 +33,7 @@ INSERT INTO conversations (connection_id, mentor_id, mentee_id) VALUES
 INSERT INTO messages (body, time_sent, sender_id, recipient_id, conversation_id) VALUES
 ('Glad to be connected', NULL, 1, 2, 1)
 ;
+
+INSERT INTO userCategories (category_id, user_id, is_mentor, is_mentee) VALUES
+(1, 2, TRUE, FALSE),
+(1, 1, FALSE, TRUE);

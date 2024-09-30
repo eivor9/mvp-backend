@@ -77,5 +77,12 @@ CREATE TABLE messages (
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     recipient_id  INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
-
+CREATE TABLE userCategories (
+    id SERIAL PRIMARY KEY,
+    category_id INTEGER REFERENCES categories(id),
+    user_id INTEGER REFERENCES users(id),
+    is_mentor BOOLEAN DEFAULT FALSE,
+    is_mentee BOOLEAN DEFAULT FALSE,
+    UNIQUE (category_id, user_id)
+);
 
