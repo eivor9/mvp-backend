@@ -28,11 +28,11 @@ const getMetric = async (id) => {
 };
 
 const createMetric = async (metric) => {
-  const { name, connection_id, progress } = metric;
+  const { name, progress } = metric;
   try {
     const newMetric = await db.one(
-      'INSERT INTO metrics (name,connection_id,progress) VALUES($1,$2,$3) RETURNING *',
-      [name, connection_id, progress]
+      'INSERT INTO metrics (name, progress) VALUES($1, $2) RETURNING *',
+      [name, progress]
     );
     // console.log(newMetric)
     return newMetric;
@@ -55,11 +55,11 @@ const deleteMetric = async (id) => {
 };
 
 const updateMetric = async (id, metric) => {
-  const { name, connection_id, progress } = metric;
+  const { name, progress } = metric;
   try {
     const updatedMetric = await db.one(
-      'UPDATE metrics SET name=$1, connection_id=$2, progress=$3 WHERE id=$4 RETURNING *',
-      [name, connection_id, progress, id]
+      'UPDATE metrics SET name=$1, progress=$2 WHERE id=$3 RETURNING *',
+      [name, progress, id]
     );
     // console.log(updatedMetric)
     return updatedMetric;
