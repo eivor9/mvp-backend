@@ -8,6 +8,10 @@ const categories = express.Router();
 const subcategoriesController = require("./subcategoriesController.js");
 categories.use("/:category_id/subcategory", subcategoriesController);
 
+//category Users
+const categoryUsersController = require("./categoryUsersController.js");
+categories.use("/:category_id/categoryUsers", categoryUsersController);
+
 //QUERIES
 const {
     getAllCategories, 

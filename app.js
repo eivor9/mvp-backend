@@ -28,6 +28,10 @@ app.use("/categories", categoriesController);
 const connectionsController = require("./controllers/connectionsController.js");
 app.use("/connections", connectionsController);
 
+// CategoryUsers
+const categoryUsersController = require("./controllers/categoryUsersController.js");
+app.use("/category-users", categoryUsersController)
+
 // 404 PAGE
 app.get("*", (req, res) => {
   res.status(404).send("Page not found");
