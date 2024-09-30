@@ -77,6 +77,7 @@ CREATE TABLE messages (
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     recipient_id  INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
+
 CREATE TABLE userCategories (
     id SERIAL PRIMARY KEY,
     category_id INTEGER REFERENCES categories(id),

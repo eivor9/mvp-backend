@@ -6,11 +6,11 @@ const categories = express.Router();
 
 // SUBCATEGORIES
 const subcategoriesController = require("./subcategoriesController.js");
-categories.use("/:category_id/subcategory", subcategoriesController);
+categories.use("/:category_id/subcategories", subcategoriesController);
 
 //category Users
 const categoryUsersController = require("./categoryUsersController.js");
-categories.use("/:category_id/categoryUsers", categoryUsersController);
+categories.use("/:category_id/category-users", categoryUsersController);
 
 //QUERIES
 const {

@@ -1,22 +1,22 @@
 const express = require('express');
-const categoryUsers = express.Router({ mergeParams: true });
+const userCategories = express.Router({ mergeParams: true });
 
 //query imports
 const { getCategory } = require('../queries/categories');
 
 const {
-    createCategoryUser,
-    getCategoryUsers,
-    deleteCategoryUser
-  } = require('../queries/categoryUsers')
+    createUserCategory,
+    getUserCategories,
+    deleteUserCategory
+  }= require('../queries/categoryUsers')
 
   //Get route
-categoryUsers.get('/', async(req, res) => {
+  userCategories.get('/', async(req, res) => {
     const { category_id } = req.params;
 
     try {
 
-        const categoryUsers = await getCategoryUsers(category_id);
+        const categoryUsers = await getUserCategories(category_id);
         const category = await getCategory(category_id);
     
         if (category) {
@@ -31,9 +31,9 @@ categoryUsers.get('/', async(req, res) => {
 })
 
 // post route 
-categoryUsers.post('/', async(req, res) => {
+userCategories.post('/', async(req, res) => {
     try {
-        const newCategoryUser = await createCategoryUser(req.body);
+        const newCategoryUser = await createUserCategory(req.body);
         res.status(201).json(newCategoryUser);
       } catch (error) {
         res.status(404).json({ error: 'user not created' });
@@ -41,15 +41,15 @@ categoryUsers.post('/', async(req, res) => {
 })
 
 // delete route
-categoryUsers.delete('/:id', async(req, res) => {
+userCategories.delete('/:id', async(req, res) => {
     const { id } = req.params;
-    const deletedCategoryUser = await deleteCategoryUser(id);
-  if (deletedCategoryUser.id) {
+    const deletedUserCategory = await deleteUserCategory(id);
+  if (deletedUserCategory.id) {
     res
       .status(200)
-      .json({ message: 'categoryUser successfully deleted', ...deletedCategoryUser });
+      .json({ message: 'categoryUser successfully deleted', ...deletedUserCategory });
   } else {
     res.status(404).json('categoryUser not found');
   }
 })
-module.exports = categoryUsers
+module.exports = userCategories
