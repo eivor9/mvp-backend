@@ -86,3 +86,13 @@ CREATE TABLE userCategories (
     UNIQUE (category_id, user_id)
 );
 
+CREATE TABLE testimonials (
+    id SERIAL PRIMARY KEY,
+    reviewer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    mentor_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    mentee_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    body TEXT NOT NULL,
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

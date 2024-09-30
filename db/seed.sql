@@ -37,3 +37,12 @@ INSERT INTO messages (body, time_sent, sender_id, recipient_id, conversation_id)
 INSERT INTO userCategories (category_id, user_id, is_mentor, is_mentee) VALUES
 (1, 2, TRUE, FALSE),
 (1, 1, FALSE, TRUE);
+
+
+INSERT INTO testimonials (reviewer_id, mentor_id, mentee_id, body, category_id)
+VALUES
+(1, 2, 1, 'Working with my mentor was a transformative experience. They guided me through web development concepts, helping me build my first full-stack application. Their insights were invaluable!', 1),
+(2, 1, 2, 'As a mentee, I had an amazing experience learning about business strategy. My mentor offered practical advice that changed my perspective on management and leadership.', 2),
+(1, 2, 1, 'My mentor’s guidance in software testing made all the difference. They helped me improve my testing strategies, leading to more efficient and bug-free code.', 1),
+(2, 1, 2, 'The mentorship in management was phenomenal! I gained confidence in my leadership abilities and received practical tips for better team management.', 2),
+(1, 2, 1, 'Learning how to optimize databases was a game-changer for my web development projects. My mentor’s advice on best practices helped me improve performance and scalability.', 1);
