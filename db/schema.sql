@@ -23,7 +23,7 @@ CREATE TABLE users (
     job_title TEXT,
     is_mentee BOOLEAN,
     is_mentor BOOLEAN,
-    signup_date TIMESTAMP
+    signup_date DATE NOT NULL
 );
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
@@ -34,34 +34,35 @@ CREATE TABLE subcategories (
     category_id INTEGER REFERENCES categories (id) ON DELETE CASCADE,
     name TEXT
 );
+CREATE TABLE metrics (
+    id SERIAL PRIMARY KEY, 
+    name TEXT,
+    progress INTEGER CHECK (progress >= 0 AND progress <= 100)
+);
 CREATE TABLE connections (
     id SERIAL PRIMARY KEY,
     mentor_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     mentee_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     category_id INTEGER REFERENCES categories (id) ON DELETE CASCADE,
     subcategory_id INTEGER REFERENCES subcategories (id) ON DELETE CASCADE,
-    metric_one INTEGER,
-    metric_two INTEGER,
-    metric_three INTEGER,
-    metric_four INTEGER,
-    metric_five INTEGER
-);
-CREATE TABLE metrics (
-    id SERIAL PRIMARY KEY, 
-    name TEXT,
-    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
-    progress INTEGER CHECK (progress >= 0 AND progress <= 100)
+    metric_one INTEGER REFERENCES metrics (id) ON DELETE CASCADE,
+    metric_two INTEGER REFERENCES metrics (id) ON DELETE CASCADE,
+    metric_three INTEGER REFERENCES metrics (id) ON DELETE CASCADE,
+    metric_four INTEGER REFERENCES metrics (id) ON DELETE CASCADE,
+    metric_five INTEGER REFERENCES metrics (id) ON DELETE CASCADE
 );
 CREATE TABLE assignments (
     id SERIAL PRIMARY KEY, 
     name TEXT,
     body TEXT,
     metric_id INTEGER REFERENCES metrics(id) ON DELETE CASCADE,
-    target_date TIMESTAMP,
+    target_date DATE,
+    submission_date DATE,
     is_submitted BOOLEAN,
     submission TEXT,
     rating INTEGER CHECK (rating >= 0 AND rating <= 100),
-    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE
+    connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
+    comment TEXT
 );
 CREATE TABLE conversations (
     id SERIAL PRIMARY KEY,
