@@ -88,6 +88,15 @@ CREATE TABLE userCategories (
     UNIQUE (category_id, user_id)
 );
 
+CREATE TABLE userSubcategories (
+    id SERIAL PRIMARY KEY,
+    subcategory_id INTEGER REFERENCES subcategories(id),
+    user_id INTEGER REFERENCES users(id),
+    is_mentor BOOLEAN DEFAULT FALSE,
+    is_mentee BOOLEAN DEFAULT FALSE,
+    UNIQUE (subcategory_id, user_id)
+);
+
 CREATE TABLE testimonials (
     id SERIAL PRIMARY KEY,
     reviewer_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

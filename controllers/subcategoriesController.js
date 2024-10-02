@@ -4,6 +4,11 @@
 const express = require('express');
 const subcategories = express.Router({ mergeParams: true });
 
+
+//subcategory Users
+const userSubcategoriesController = require("./userSubcategoriesController.js");
+subcategories.use("/:subcategory_id/subcategory-users", userSubcategoriesController);
+
 const { getCategory } = require('../queries/categories');
 const {
     getAllSubcategories,

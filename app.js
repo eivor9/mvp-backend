@@ -30,7 +30,11 @@ app.use("/connections", connectionsController);
 
 // CategoryUsers
 const categoryUsersController = require("./controllers/categoryUsersController.js");
-app.use("/category-users", categoryUsersController)
+app.use("/category-users", categoryUsersController);
+
+// subcategory users
+const userSubcategoriesController = require("./controllers/userSubcategoriesController.js")
+app.use("/subcategory-users", userSubcategoriesController);
 
 // 404 PAGE
 app.get("*", (req, res) => {

@@ -36,7 +36,7 @@ userCategories.post('/', async(req, res) => {
         const newCategoryUser = await createUserCategory(req.body);
         res.status(201).json(newCategoryUser);
       } catch (error) {
-        res.status(404).json({ error: 'user not created' });
+        res.status(404).json({ error: 'user category not created' });
       }
 })
 
