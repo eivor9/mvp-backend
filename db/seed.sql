@@ -16,7 +16,7 @@ INSERT INTO users (first_name, last_name, email, password, job_title, is_mentee,
 
 
 INSERT INTO categories (name) VALUES
-('Developement'),
+('Development'),
 ('Business'),
 ('Finance & Accounting'),
 ('IT & Software'),

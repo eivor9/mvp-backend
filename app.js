@@ -36,10 +36,16 @@ app.use("/category-users", categoryUsersController);
 const userSubcategoriesController = require("./controllers/userSubcategoriesController.js")
 app.use("/subcategory-users", userSubcategoriesController);
 
+// Other imports...
+//testimonials
+const testimonialsController = require("./controllers/testimonialsController.js");
+app.use("/testimonials", testimonialsController);
+
 // 404 PAGE
 app.get("*", (req, res) => {
   res.status(404).send("Page not found");
 });
+
 
 // EXPORT
 module.exports = app;
