@@ -47,58 +47,40 @@ INSERT INTO metrics (name, progress) VALUES
 ('Common Chord Progressions', 0)
 ;
 
--- Mentor and mentee connections for each user
 INSERT INTO connections (mentor_id, mentee_id, category_id, subcategory_id, metric_one, metric_two, metric_three, metric_four, metric_five) VALUES
--- Mentor Connections for John Doe (1)
 (1, 2, 1, 1, 1, 2, NULL, NULL, NULL),
 (1, 3, 1, 2, 1, 2, NULL, NULL, NULL),
 (1, 4, 1, 3, 1, 2, NULL, NULL, NULL),
 (1, 5, 1, 4, 1, 2, NULL, NULL, NULL),
-
--- Mentee Connections for John Doe (1)
 (2, 1, 10, 5, 1, 2, NULL, NULL, NULL),
 (3, 1, 7, 8, 1, 2, NULL, NULL, NULL),
 (6, 1, 7, 6, 1, 2, NULL, NULL, NULL),
 (7, 1, 9, 9, 1, 2, NULL, NULL, NULL),
-
--- Mentor Connections for Jane Doe (2)
 (2, 1, 10, 5, 1, 2, NULL, NULL, NULL),
 (2, 6, 10, 7, 1, 2, NULL, NULL, NULL),
 (2, 7, 10, 9, 1, 2, NULL, NULL, NULL),
 (2, 8, 10, 4, 1, 2, NULL, NULL, NULL),
-
--- Mentee Connections for Jane Doe (2)
 (1, 2, 1, 1, 1, 2, NULL, NULL, NULL),
 (3, 2, 7, 8, 1, 2, NULL, NULL, NULL),
 (4, 2, 8, 6, 1, 2, NULL, NULL, NULL),
 (5, 2, 9, 10, 1, 2, NULL, NULL, NULL),
-
--- Mentor Connections for Kate Wilson (3)
 (3, 1, 7, 7, 1, 2, NULL, NULL, NULL),
 (3, 2, 7, 5, 1, 2, NULL, NULL, NULL),
 (3, 4, 7, 3, 1, 2, NULL, NULL, NULL),
 (3, 5, 7, 1, 1, 2, NULL, NULL, NULL),
-
--- Mentee Connections for Kate Wilson (3)
 (1, 3, 1, 2, 1, 2, NULL, NULL, NULL),
 (2, 3, 10, 4, 1, 2, NULL, NULL, NULL),
 (6, 3, 7, 7, 1, 2, NULL, NULL, NULL),
 (7, 3, 9, 10, 1, 2, NULL, NULL, NULL),
-
--- luke young connections
 (4, 1, 2, 4, 1, 2, NULL, NULL, NULL),
 (4, 2, 3, 2, 1, 2, NULL, NULL, NULL),
 (4, 3, 4, 5, 1, 2, NULL, NULL, NULL),
 (4, 5, 5, 9, 1, 2, NULL, NULL, NULL),
-
 (1, 4, 1, 3, 1, 2, NULL, NULL, NULL),
 (2, 4, 2, 6, 1, 2, NULL, NULL, NULL),
 (3, 4, 3, 8, 1, 2, NULL, NULL, NULL),
 (5, 4, 4, 7, 1, 2, NULL, NULL, NULL)
 ;
-
--- Adding more connections to ensure each user has 4 connections as a mentor and 4 as a mentee, with subcategory_id values between 1 and 10.
-
 
 INSERT INTO assignments (name, metric_id, body, target_date, submission_date, is_submitted, submission, rating, connection_id, comment) VALUES
 ('A Major Scale', 1, 'Play the a major scale at 100 bpm. QUARTER NOTES', '2024-04-20', '2024-04-20', true, 'Scale at target tempo has been acheived', 100, 1, 'Great work!'),
@@ -116,67 +98,53 @@ INSERT INTO messages (body, time_sent, sender_id, recipient_id, conversation_id)
 ('Likewise', '2024-03-01 13:00:00', 2, 1, 1)
 ;
 
--- Assigning users to categories to ensure each category has 4-8 users
 INSERT INTO userCategories (category_id, user_id, is_mentor, is_mentee) VALUES
--- Category 1 (Development)
 (1, 1, TRUE, FALSE),
 (1, 2, TRUE, TRUE),
 (1, 3, TRUE, FALSE),
 (1, 4, FALSE, TRUE),
 (1, 5, TRUE, TRUE),
-
--- Category 10 (Music)
 (10, 1, FALSE, TRUE),
 (10, 2, TRUE, FALSE),
 (10, 6, TRUE, FALSE),
 (10, 7, TRUE, FALSE),
 (10, 9, TRUE, TRUE),
-
--- Category 9 (Health & Fitness)
 (9, 5, TRUE, FALSE),
 (9, 6, FALSE, TRUE),
 (9, 7, TRUE, FALSE),
 (9, 8, TRUE, TRUE),
-
--- Category 7 (Personal Development)
 (7, 1, FALSE, TRUE),
 (7, 3, TRUE, FALSE),
 (7, 4, TRUE, FALSE),
 (7, 5, FALSE, TRUE),
-
--- Adding more userCategories to ensure distribution across all categories...
 (2, 6, TRUE, FALSE),
 (3, 6, FALSE, TRUE),
-
--- Adding for user 7
 (4, 7, TRUE, FALSE),
 (5, 7, FALSE, TRUE),
-
--- Adding for user 8
 (6, 8, TRUE, FALSE)
 ;
 
 INSERT INTO userSubcategories (subcategory_id, user_id, is_mentor, is_mentee) VALUES
-(1, 1, TRUE, FALSE),  -- User 1 is a mentor in subcategory 1
-(2, 1, FALSE, TRUE),  -- User 1 is a mentee in subcategory 2
-(3, 2, TRUE, FALSE),  -- User 2 is a mentor in subcategory 3
-(4, 2, FALSE, TRUE),  -- User 2 is a mentee in subcategory 4
-(5, 3, TRUE, FALSE),  -- User 3 is a mentor in subcategory 5
-(6, 3, FALSE, TRUE),  -- User 3 is a mentee in subcategory 6
-(7, 4, TRUE, FALSE),  -- User 4 (Luke Young) is a mentor in subcategory 7
-(8, 4, FALSE, TRUE),  -- User 4 (Luke Young) is a mentee in subcategory 8
-(9, 5, TRUE, FALSE),  -- User 5 is a mentor in subcategory 9
-(10, 5, FALSE, TRUE), -- User 5 is a mentee in subcategory 10
-(1, 6, TRUE, FALSE),  -- User 6 is a mentor in subcategory 1
-(2, 6, FALSE, TRUE),  -- User 6 is a mentee in subcategory 2
-(3, 7, TRUE, FALSE),  -- User 7 is a mentor in subcategory 3
-(4, 7, FALSE, TRUE),  -- User 7 is a mentee in subcategory 4
-(5, 8, TRUE, FALSE),  -- User 8 is a mentor in subcategory 5
-(6, 8, FALSE, TRUE),  -- User 8 is a mentee in subcategory 6
-(7, 9, TRUE, FALSE),  -- User 9 is a mentor in subcategory 7
-(8, 9, FALSE, TRUE),  -- User 9 is a mentee in subcategory 8
-(9, 10, TRUE, FALSE), -- User 10 is a mentor in subcategory 9
-(10, 10, FALSE, TRUE) -- User 10 is a mentee in subcategory 10
+(1, 1, TRUE, FALSE), 
+(2, 1, FALSE, TRUE), 
+(3, 2, TRUE, FALSE), 
+(4, 2, FALSE, TRUE), 
+(5, 3, TRUE, FALSE), 
+(6, 3, FALSE, TRUE), 
+(7, 4, TRUE, FALSE),  
+(8, 4, FALSE, TRUE),  
+(9, 5, TRUE, FALSE), 
+(10, 5, FALSE, TRUE), 
+(1, 6, TRUE, FALSE), 
+(2, 6, FALSE, TRUE),  
+(3, 7, TRUE, FALSE), 
+(4, 7, FALSE, TRUE),  
+(5, 8, TRUE, FALSE),  
+(6, 8, FALSE, TRUE),  
+(7, 9, TRUE, FALSE),  
+(8, 9, FALSE, TRUE),  
+(9, 10, TRUE, FALSE), 
+(10, 10, FALSE, TRUE)
 ;
 
 INSERT INTO testimonials (reviewer_id, mentor_id, mentee_id, body, category_id)

@@ -13,6 +13,11 @@ const {
   updateUser,
 } = require('../queries/users.js');
 
+// helper queries for fetching user's recent assignments
+const {
+  getRecentAssignmentsByUserId
+} = require('../queries/helperQueries.js')
+
 // CONNECTIONS
 const connectionsController = require('./connectionsController.js');
 users.use('/:user_id/connections', connectionsController);
@@ -27,6 +32,17 @@ users.get('/', async (req, res) => {
   }
 });
 
+//get user's recent assignments
+users.get('/:id/recent-assignments', async(req, res) => {
+  const { id } = req.params;
+  const recentAssignments = await getRecentAssignmentsByUserId(id);
+  if(recentAssignments.length) {
+    res.status(200).json(recentAssignments);
+  } else {
+    res.status(404).json({ error: "server error"})
+  }
+})
+
 // SHOW
 users.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -37,6 +53,7 @@ users.get('/:id', async (req, res) => {
     res.status(404).json({ error: 'user not found' });
   }
 });
+
 
 // CREATE
 users.post('/', async (req, res) => {
