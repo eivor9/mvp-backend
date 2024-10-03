@@ -4,9 +4,9 @@ const db = require('../db/dbConfig.js');
 
 //Contact Jazon if error found.
 
-const getAllMetrics = async () => {
+const getAllMetrics = async (connection_id) => {
   try {
-    const allMetrics = await db.any('SELECT * FROM metrics');
+    const allMetrics = await db.any('SELECT * FROM metrics WHERE connection_id=$1', [connection_id]);
     // console.log(allMetrics);
     return allMetrics;
   } catch (error) {

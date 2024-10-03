@@ -13,7 +13,8 @@ const {
 
 // INDEX
 metrics.get('/all', async (req, res) => {
-  const allMetrics = await getAllMetrics();
+  const { connection_id } = req.params;
+  const allMetrics = await getAllMetrics(connection_id);
   if (allMetrics[0]) {
     res.status(200).json(allMetrics);
   } else {

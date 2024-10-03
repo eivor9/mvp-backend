@@ -41,47 +41,47 @@ INSERT INTO subcategories (category_id, name) VALUES
 (10, 'Instruments'), (10, 'Music Production'), (10, 'Music Fundamentals'), (10, 'Vocal'), (10, 'Music Techniques'), (10, 'Music Software')
 ;
 
-INSERT INTO metrics (name, progress) VALUES
-('Scales', 100),
-('Chords', 50),
-('Common Chord Progressions', 0)
+INSERT INTO connections (mentor_id, mentee_id, category_id, subcategory_id) VALUES
+(1, 2, 1, 1),
+(1, 3, 1, 2),
+(1, 4, 1, 3),
+(1, 5, 1, 4),
+(2, 1, 10, 5),
+(3, 1, 7, 8),
+(6, 1, 7, 6),
+(7, 1, 9, 9),
+(2, 1, 10, 5),
+(2, 6, 10, 7),
+(2, 7, 10, 9),
+(2, 8, 10, 4),
+(1, 2, 1, 1),
+(3, 2, 7, 8),
+(4, 2, 8, 6),
+(5, 2, 9, 10),
+(3, 1, 7, 7),
+(3, 2, 7, 5),
+(3, 4, 7, 3),
+(3, 5, 7, 1),
+(1, 3, 1, 2),
+(2, 3, 10, 4),
+(6, 3, 7, 7),
+(7, 3, 9, 10),
+(4, 1, 2, 4),
+(4, 2, 3, 2),
+(4, 3, 4, 5),
+(4, 5, 5, 9),
+(1, 4, 1, 3),
+(2, 4, 2, 6),
+(3, 4, 3, 8),
+(5, 4, 4, 7)
 ;
 
-INSERT INTO connections (mentor_id, mentee_id, category_id, subcategory_id, metric_one, metric_two, metric_three, metric_four, metric_five) VALUES
-(1, 2, 1, 1, 1, 2, NULL, NULL, NULL),
-(1, 3, 1, 2, 1, 2, NULL, NULL, NULL),
-(1, 4, 1, 3, 1, 2, NULL, NULL, NULL),
-(1, 5, 1, 4, 1, 2, NULL, NULL, NULL),
-(2, 1, 10, 5, 1, 2, NULL, NULL, NULL),
-(3, 1, 7, 8, 1, 2, NULL, NULL, NULL),
-(6, 1, 7, 6, 1, 2, NULL, NULL, NULL),
-(7, 1, 9, 9, 1, 2, NULL, NULL, NULL),
-(2, 1, 10, 5, 1, 2, NULL, NULL, NULL),
-(2, 6, 10, 7, 1, 2, NULL, NULL, NULL),
-(2, 7, 10, 9, 1, 2, NULL, NULL, NULL),
-(2, 8, 10, 4, 1, 2, NULL, NULL, NULL),
-(1, 2, 1, 1, 1, 2, NULL, NULL, NULL),
-(3, 2, 7, 8, 1, 2, NULL, NULL, NULL),
-(4, 2, 8, 6, 1, 2, NULL, NULL, NULL),
-(5, 2, 9, 10, 1, 2, NULL, NULL, NULL),
-(3, 1, 7, 7, 1, 2, NULL, NULL, NULL),
-(3, 2, 7, 5, 1, 2, NULL, NULL, NULL),
-(3, 4, 7, 3, 1, 2, NULL, NULL, NULL),
-(3, 5, 7, 1, 1, 2, NULL, NULL, NULL),
-(1, 3, 1, 2, 1, 2, NULL, NULL, NULL),
-(2, 3, 10, 4, 1, 2, NULL, NULL, NULL),
-(6, 3, 7, 7, 1, 2, NULL, NULL, NULL),
-(7, 3, 9, 10, 1, 2, NULL, NULL, NULL),
-(4, 1, 2, 4, 1, 2, NULL, NULL, NULL),
-(4, 2, 3, 2, 1, 2, NULL, NULL, NULL),
-(4, 3, 4, 5, 1, 2, NULL, NULL, NULL),
-(4, 5, 5, 9, 1, 2, NULL, NULL, NULL),
-(1, 4, 1, 3, 1, 2, NULL, NULL, NULL),
-(2, 4, 2, 6, 1, 2, NULL, NULL, NULL),
-(3, 4, 3, 8, 1, 2, NULL, NULL, NULL),
-(5, 4, 4, 7, 1, 2, NULL, NULL, NULL)
-;
 
+INSERT INTO metrics (name, progress, connection_id) VALUES
+('Scales', 100, 1),
+('Chords', 50, 1),
+('Common Chord Progressions', 0, 1)
+;
 INSERT INTO assignments (name, metric_id, body, target_date, submission_date, is_submitted, submission, rating, connection_id, comment) VALUES
 ('A Major Scale', 1, 'Play the a major scale at 100 bpm. QUARTER NOTES', '2024-04-20', '2024-04-20', true, 'Scale at target tempo has been acheived', 100, 1, 'Great work!'),
 ('I - V - VI - IV', 3, 'This progression is one of the most popular and widely used in many genres of music, including rock, pop, and folk. By mastering this progression, you will develop a stronger understanding of basic chord shapes and improve your ability to transition smoothly between chords.', '2024-11-02', NULL, false, NULL, 0, 1, 'No comments yet...'),
