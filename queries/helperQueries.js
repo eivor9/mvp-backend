@@ -13,15 +13,4 @@ const getRecentAssignmentsByUserId = async (id) => {
     }
   }
 
-  // get metrics by connection_id for display on user dashboard
- const getMetricsByConnectionId = async (connection_id) => {
-    try {
-        const allMetrics = await db.any ("SELECT metrics.* FROM metrics JOIN connections ON connections.id=metrics.connection_id WHERE metrics.connection_id=$1", [connection_id])
-        return allMetrics;
-    } catch (error) {
-        return error;
-    }
-  }
- 
-
-  module.exports = { getRecentAssignmentsByUserId, getMetricsByConnectionId };
+  module.exports = { getRecentAssignmentsByUserId };
