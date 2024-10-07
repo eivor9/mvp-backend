@@ -11,6 +11,12 @@ const {
   updateMetric,
 } = require('../queries/metrics');
 
+//validations
+const {
+  checkName,
+  checkConnectionId,
+} = require("../validations/metricValidations")
+
 // INDEX
 metrics.get('/all', async (req, res) => {
   const { connection_id } = req.params;
