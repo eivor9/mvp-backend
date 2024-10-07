@@ -10,6 +10,14 @@ const {
     deleteUserCategory
   }= require('../queries/categoryUsers')
 
+  //validations
+  const {
+    checkCategoryId,
+    checkUserId,
+    checkIsMentor,
+    checkIsMentee,
+  } = require("../validations/categoryUsersValidations")
+
   //Get route
   userCategories.get('/', async(req, res) => {
     const { category_id } = req.params;
@@ -31,7 +39,7 @@ const {
 })
 
 // post route 
-userCategories.post('/', async(req, res) => {
+userCategories.post('/', checkCategoryId, checkUserId, checkIsMentor, checkIsMentee, async(req, res) => {
     try {
         const newCategoryUser = await createUserCategory(req.body);
         res.status(201).json(newCategoryUser);

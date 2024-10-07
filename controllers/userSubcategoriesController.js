@@ -10,6 +10,14 @@ const {
     deleteUserSubcategory
   }= require('../queries/subcategoryUsers')
 
+  //validations
+ const {
+    checkSubcategoryId,
+    checkUserId,
+    checkIsMentor,
+    checkIsMentee,
+  } = require("../validations/userSubcategoriesValidations")
+
   //Get route
   userSubcategories.get('/', async(req, res) => {
     const { subcategory_id } = req.params;
@@ -31,7 +39,7 @@ const {
 })
 
 // post route 
-userSubcategories.post('/', async(req, res) => {
+userSubcategories.post('/', checkSubcategoryId, checkUserId, checkIsMentor, checkIsMentee, async(req, res) => {
     try {
         const newUserSubcategory = await createUserSubcategory(req.body);
         res.status(201).json(newUserSubcategory);
