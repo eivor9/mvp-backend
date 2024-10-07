@@ -10,6 +10,13 @@ const {
   deleteConversation,
 } = require('../queries/conversations.js');
 
+//validations
+const {
+  checkConnectionId,
+  checkMentorId,
+  checkMenteeId,
+} = require("../validations/conversationsValidations.js")
+
 // MESSAGES
 const messagesController = require('./messagesController.js');
 conversations.use('/:conversation_id/messages', messagesController);

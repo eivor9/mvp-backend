@@ -11,6 +11,14 @@ const {
   updateMessage,
 } = require('../queries/messages.js');
 
+//Validations 
+const {
+  checkBody,
+  checkSenderId,
+  checkRecipientId,
+  checkConversationId,
+} = require("../validations/messagesValidations.js")
+
 // INDEX - Get all messages for a conversation
 messages.get('/', async (req, res) => {
   const { conversation_id } = req.params;
