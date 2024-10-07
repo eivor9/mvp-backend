@@ -25,7 +25,7 @@ users.use('/:user_id/connections', connectionsController);
 // INDEX
 users.get('/', async (req, res) => {
   const allUsers = await getAllUsers();
-  if (allUsers.length) {
+  if (allUsers) {
     res.status(200).json(allUsers);
   } else {
     res.status(404).json({ error: 'server error' });
@@ -36,7 +36,7 @@ users.get('/', async (req, res) => {
 users.get('/:id/recent-assignments', async(req, res) => {
   const { id } = req.params;
   const recentAssignments = await getRecentAssignmentsByUserId(id);
-  if(recentAssignments.length) {
+  if(recentAssignments) {
     res.status(200).json(recentAssignments);
   } else {
     res.status(404).json({ error: "server error"})
