@@ -16,6 +16,13 @@ const {
     updateAssignment
 } = require('../queries/assignments')
 
+//Validations
+const {
+    checkName,
+    checkConnectionId,
+    checkMetricId,
+  } = require("../validations/assignmentValidations")
+
 // INDEX - get all assignments associated with a connection by connection_id
 assignments.get("/", async (req, res) => {
     const { connection_id } = req.params;

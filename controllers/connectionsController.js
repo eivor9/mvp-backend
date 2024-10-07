@@ -10,6 +10,14 @@ const {
   deleteConnection,
 } = require('../queries/connections.js');
 
+//Validations
+const {
+  checkMentorId,
+  checkMenteeId,
+  checkCategoryId,
+  checkSubcategoryId,
+} = require('../validations/connectionValidations.js')
+
 // ASSIGNMENTS
 const assignmentsController = require('./assignmentsController.js');
 connections.use('/:connection_id/assignments', assignmentsController);

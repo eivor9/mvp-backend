@@ -13,6 +13,13 @@ const {
   updateUser,
 } = require('../queries/users.js');
 
+// validations
+const {
+  checkFirstName,
+  checkLastName,
+  validateEmail,
+} = require('../validations/userValidations.js');
+
 // helper queries for fetching user's recent assignments
 const {
   getRecentAssignmentsByUserId
