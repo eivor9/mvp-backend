@@ -55,7 +55,7 @@ connections.get('/:id', async (req, res) => {
 });
 
 // CREATE
-connections.post('/', async (req, res) => {
+connections.post('/', checkMentorId, checkMenteeId, checkCategoryId, checkSubcategoryId, async (req, res) => {
   try {
     const newConnection = await createConnection(req.body);
     res.status(200).json(newConnection);

@@ -46,7 +46,7 @@ messages.get('/:id', async (req, res) => {
 });
 
 // CREATE - Create a new message
-messages.post('/', async (req, res) => {
+messages.post('/',  checkBody, checkSenderId, checkRecipientId, checkConversationId, async (req, res) => {
   try {
     const newMessage = await createMessage(req.body);
     res.status(200).json(newMessage);

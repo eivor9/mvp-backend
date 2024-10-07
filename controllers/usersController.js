@@ -63,7 +63,7 @@ users.get('/:id', async (req, res) => {
 
 
 // CREATE
-users.post('/', async (req, res) => {
+users.post('/', checkFirstName, checkLastName, validateEmail, async (req, res) => {
   try {
     const newUser = await createUser(req.body);
     res.status(200).json(newUser);
@@ -86,7 +86,7 @@ users.delete('/:id', async (req, res) => {
 });
 
 // UPDATE
-users.put('/:id', async (req, res) => {
+users.put('/:id', checkFirstName, checkLastName, validateEmail, async (req, res) => {
   const { id } = req.params;
   try {
     const updatedUser = await updateUser(req.body, id);

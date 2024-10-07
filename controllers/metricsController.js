@@ -40,7 +40,7 @@ metrics.get('/:id', async (req, res) => {
 });
 
 // CREATE
-metrics.post('/', async (req, res) => {
+metrics.post('/', checkName, checkConnectionId, async (req, res) => {
   const newMetric = await createMetric(req.body);
   res.json(newMetric);
 });
@@ -57,7 +57,7 @@ metrics.delete('/:id', async (req, res) => {
 });
 
 // UPDATE
-metrics.put('/:id', async (req, res) => {
+metrics.put('/:id', checkName, checkConnectionId, async (req, res) => {
   const { id } = req.params;
   const updatingMetric = await updateMetric(id, req.body);
   if (updatingMetric.id) {

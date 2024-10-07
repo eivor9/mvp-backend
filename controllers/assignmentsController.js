@@ -63,7 +63,7 @@ assignments.get("/:id", async (req, res) => {
 });
 
 // CREATE - create an assignment for a connection using connection_id
-assignments.post("/", async (req, res) => {
+assignments.post("/", checkName, checkConnectionId, checkMetricId, async (req, res) => {
     const { connection_id } = req.params;
     const body = req.body;
 
@@ -94,7 +94,7 @@ assignments.delete("/:id", async (req, res) => {
 });
 
 // UPDATE - update an assignment
-assignments.put("/:id", async (req, res) => {
+assignments.put("/:id", checkName, checkConnectionId, checkMetricId, async (req, res) => {
 
     const { id } = req.params;
     const body = req.body;

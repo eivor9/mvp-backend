@@ -48,7 +48,7 @@ conversations.get('/:id', async (req, res) => {
 });
 
 // CREATE - Create a new conversation
-conversations.post('/', async (req, res) => {
+conversations.post('/', checkConnectionId, checkMentorId, checkMenteeId, async (req, res) => {
   try {
     const newConversation = await createConversation(req.body);
     res.status(200).json(newConversation);
