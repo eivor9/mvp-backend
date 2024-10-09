@@ -3,6 +3,9 @@
 // DEPENDENCIES
 const express = require('express');
 const users = express.Router();
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const secret = process.env.SECRET
 
 // QUERIES
 const {
@@ -11,6 +14,7 @@ const {
   createUser,
   deleteUser,
   updateUser,
+  logInUser
 } = require('../queries/users.js');
 
 // validations
@@ -19,6 +23,11 @@ const {
   checkLastName,
   validateEmail,
 } = require('../validations/userValidations.js');
+
+// AUTHENTICATION
+const {
+  authenticateToken
+} = require('../auth/auth.js')
 
 // helper queries for fetching user's recent assignments
 const {
@@ -66,15 +75,53 @@ users.get('/:id', async (req, res) => {
 users.post('/', checkFirstName, checkLastName, validateEmail, async (req, res) => {
   try {
     const newUser = await createUser(req.body);
-    res.status(200).json(newUser);
+    const token = jwt.sign({ id: newUser.id, email:newUser.email }, secret);
+    
+    //separate password from the return object to avoid sending
+    const { password_hash, ...userWithoutPassword } = newUser;
+
+    res.status(201).json({ user: userWithoutPassword, token });
   } catch (error) {
-    res.status(404).json({ error: 'user not created' });
+    res.status(500).json({ error: 'user not created' });
   }
 });
 
+//LOG IN ROUTE
+users.post('/login', async (req, res) => {
+  try {
+    const user = await logInUser(req.body);
+    if(!user) {
+      res.status(401).json({ error: "Invalid email or password" })
+      return
+    }
+
+    const token = jwt.sign({ id: user.id, email: user.email }, secret)
+
+    res.status(200).json({
+      user: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        job_title: user.job_title,
+        is_mentee: user.is_mentee,
+        is_mentor: user.is_mentor,
+        signup_date: user.signup_date,
+      },
+      token
+    })
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" })
+  }
+})
+
 // DELETE
-users.delete('/:id', async (req, res) => {
+users.delete('/:id', authenticateToken, async (req, res) => {
   const { id } = req.params;
+
+  if (req.user.id !== id) {
+    return res.status(403).json({ error: 'Unauthorized access' });
+ }
+
   const deletedUser = await deleteUser(id);
   if (deletedUser.id) {
     res
@@ -86,8 +133,13 @@ users.delete('/:id', async (req, res) => {
 });
 
 // UPDATE
-users.put('/:id', checkFirstName, checkLastName, validateEmail, async (req, res) => {
+users.put('/:id', authenticateToken, checkFirstName, checkLastName, validateEmail, async (req, res) => {
   const { id } = req.params;
+
+  if (req.user.id !== id) {
+    return res.status(403).json({ error: 'Unauthorized access' });
+ }
+ 
   try {
     const updatedUser = await updateUser(req.body, id);
     res.status(200).json(updatedUser);

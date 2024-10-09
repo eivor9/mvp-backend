@@ -1,17 +1,17 @@
 -- db/seed.sql
 \c mvp_dev;
 
-INSERT INTO users (first_name, last_name, email, password, job_title, is_mentee, is_mentor, signup_date) VALUES
-('John', 'Doe', 'johndoe@gmail.com', 'password', 'Web Developer', true, true, '2024-01-01'),
-('Jane', 'Doe', 'janedoe@gmail.com', 'password', 'Guitar Instructor', true, true, '2024-02-24'),
+INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_mentee, is_mentor, signup_date) VALUES
+('John', 'Doe', 'johndoe@gmail.com', 'password', 'Web Developer', false, true, '2024-01-01'),
+('Jane', 'Doe', 'janedoe@gmail.com', 'password', 'Guitar Instructor', true, false, '2024-02-24'),
 ('Kate', 'Wilson', 'kate.wilson@gmail.com', 'password', 'Entrepreneur', true, true, '2024-06-15'),
-('Luke', 'Young', 'luke.young@gmail.com', 'password', 'Software Developer', true, true, '2024-06-20'),
-('Mia', 'Moore', 'mia.moore@gmail.com', 'password', 'Personal Trainer', true, true, '2024-06-25'),
-('Oscar', 'Harris', 'oscar.harris@gmail.com', 'password', 'UX/UI Designer', true, true, '2024-07-05'),
-('Paul', 'Martin', 'paul.martin@gmail.com', 'password', 'Financial Analyst', true, true, '2024-07-10'),
-('Quinn', 'Scott', 'quinn.scott@gmail.com', 'password', 'Marketing Consultant', true, true, '2024-07-15'),
-('Rachel', 'Adams', 'rachel.adams@gmail.com', 'password', 'Digital Marketer', true, true, '2024-07-20'),
-('Sam', 'King', 'sam.king@gmail.com', 'password', 'Music Producer', true, true, '2024-07-25')
+('Luke', 'Young', 'luke.young@gmail.com', 'password', 'Software Developer', true, false, '2024-06-20'),
+('Mia', 'Moore', 'mia.moore@gmail.com', 'password', 'Personal Trainer', false, true, '2024-06-25'),
+('Oscar', 'Harris', 'oscar.harris@gmail.com', 'password', 'UX/UI Designer', false, true, '2024-07-05'),
+('Paul', 'Martin', 'paul.martin@gmail.com', 'password', 'Financial Analyst', true, false, '2024-07-10'),
+('Quinn', 'Scott', 'quinn.scott@gmail.com', 'password', 'Marketing Consultant', false, true, '2024-07-15'),
+('Rachel', 'Adams', 'rachel.adams@gmail.com', 'password', 'Digital Marketer', true, false, '2024-07-20'),
+('Sam', 'King', 'sam.king@gmail.com', 'password', 'Music Producer', false, true, '2024-07-25')
 ;
 
 
@@ -100,19 +100,19 @@ INSERT INTO messages (body, time_sent, sender_id, recipient_id, conversation_id)
 
 INSERT INTO userCategories (category_id, user_id, is_mentor, is_mentee) VALUES
 (1, 1, TRUE, FALSE),
-(1, 2, TRUE, TRUE),
+(1, 2, TRUE, FALSE),
 (1, 3, TRUE, FALSE),
 (1, 4, FALSE, TRUE),
-(1, 5, TRUE, TRUE),
+(1, 5, FALSE, TRUE),
 (10, 1, FALSE, TRUE),
 (10, 2, TRUE, FALSE),
 (10, 6, TRUE, FALSE),
 (10, 7, TRUE, FALSE),
-(10, 9, TRUE, TRUE),
+(10, 9, TRUE, FALSE),
 (9, 5, TRUE, FALSE),
 (9, 6, FALSE, TRUE),
 (9, 7, TRUE, FALSE),
-(9, 8, TRUE, TRUE),
+(9, 8, FALSE, TRUE),
 (7, 1, FALSE, TRUE),
 (7, 3, TRUE, FALSE),
 (7, 4, TRUE, FALSE),

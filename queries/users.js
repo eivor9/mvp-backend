@@ -1,6 +1,7 @@
 // queries/users.js
 
 const db = require('../db/dbConfig.js');
+const bcrypt = require('bcrypt')
 
 const getAllUsers = async () => {
   try {
@@ -23,13 +24,17 @@ const getUser = async (id) => {
 // CREATE
 const createUser = async (user) => {
   try {
+
+    const { username, email, password_hash } = user
+    const salt = 10
+    const hash = await bcrypt.hash(password_hash, salt)
     const newUser = await db.one(
-      'INSERT INTO users (first_name, last_name, email, password, job_title, is_mentee, is_mentor, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      'INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_mentee, is_mentor, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
       [
         user.first_name,
         user.last_name,
         user.email,
-        user.password,
+        hash,
         user.job_title,
         user.is_mentee,
         user.is_mentor,
@@ -76,10 +81,30 @@ const updateUser = async (user, id) => {
   }
 };
 
+const logInUser = async (user) => {
+  try {
+    const loggedInUser = await db.oneOrNone("SELECT * FROM users WHERE email=$1", [user.email])
+    //console.log(loggedInUser)
+    if(!loggedInUser){
+      return false
+    }
+
+    const passwordMatch = await bcrypt.compare(user.password_hash, loggedInUser.password_hash)
+
+    if(!passwordMatch) {
+      return false
+    }
+    return loggedInUser
+  } catch (error) {
+    return error
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUser,
   createUser,
   deleteUser,
   updateUser,
+  logInUser
 };

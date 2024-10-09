@@ -23,11 +23,11 @@ CREATE TABLE users (
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
     job_title TEXT,
     is_mentee BOOLEAN,
     is_mentor BOOLEAN,
-    signup_date DATE NOT NULL
+    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE categories (
@@ -46,7 +46,8 @@ CREATE TABLE connections (
     mentor_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     mentee_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     category_id INTEGER REFERENCES categories (id) ON DELETE CASCADE,
-    subcategory_id INTEGER REFERENCES subcategories (id) ON DELETE CASCADE
+    subcategory_id INTEGER REFERENCES subcategories (id) ON DELETE CASCADE,
+    status TEXT DEFAULT 'pending'
 );
 
 CREATE TABLE metrics (
