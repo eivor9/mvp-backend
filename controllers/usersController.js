@@ -88,6 +88,7 @@ users.post('/', checkFirstName, checkLastName, validateEmail, async (req, res) =
 
 //LOG IN ROUTE
 users.post('/login', async (req, res) => {
+  console.log(req.body)
   try {
     const user = await logInUser(req.body);
     if(!user) {
@@ -99,6 +100,7 @@ users.post('/login', async (req, res) => {
 
     res.status(200).json({
       user: {
+        id: user.id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,

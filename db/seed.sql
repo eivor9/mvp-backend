@@ -12,6 +12,7 @@ INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_me
 ('Quinn', 'Scott', 'quinn.scott@gmail.com', 'password', 'Marketing Consultant', false, true, '2024-07-15'),
 ('Rachel', 'Adams', 'rachel.adams@gmail.com', 'password', 'Digital Marketer', true, false, '2024-07-20'),
 ('Sam', 'King', 'sam.king@gmail.com', 'password', 'Music Producer', false, true, '2024-07-25')
+
 ;
 
 

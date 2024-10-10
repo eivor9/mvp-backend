@@ -10,6 +10,10 @@ const {
     deleteUserCategory
   }= require('../queries/categoryUsers')
 
+  const {
+    getUsersCategoriesById
+  } = require('../queries/matchUsers')
+
   //validations
   const {
     checkCategoryId,
@@ -19,7 +23,7 @@ const {
   } = require("../validations/categoryUsersValidations")
 
   //Get route
-  userCategories.get('/', async(req, res) => {
+  userCategories.get('/:category_id', async(req, res) => {
     const { category_id } = req.params;
 
     try {
@@ -36,6 +40,18 @@ const {
     } catch (error) {
         res.status(500).json({ error: "server error" });
     }
+})
+
+//get a user's categories by their user_id
+userCategories.get('/users/:user_id', async (req, res)=> {
+
+    const { user_id } = req.params
+  try{
+    const userCategories = await getUsersCategoriesById(user_id)
+    res.status(200).send(userCategories)
+  } catch (error) {
+    res.status(500).json({ error: "server error"})
+  }
 })
 
 // post route 
