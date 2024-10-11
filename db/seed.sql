@@ -1,19 +1,17 @@
 -- db/seed.sql
 \c mvp_dev;
 
-INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_mentee, is_mentor, signup_date) VALUES
-('John', 'Doe', 'johndoe@gmail.com', 'password', 'Web Developer', false, true, '2024-01-01'),
-('Jane', 'Doe', 'janedoe@gmail.com', 'password', 'Guitar Instructor', true, false, '2024-02-24'),
-('Kate', 'Wilson', 'kate.wilson@gmail.com', 'password', 'Entrepreneur', true, true, '2024-06-15'),
-('Luke', 'Young', 'luke.young@gmail.com', 'password', 'Software Developer', true, false, '2024-06-20'),
-('Mia', 'Moore', 'mia.moore@gmail.com', 'password', 'Personal Trainer', false, true, '2024-06-25'),
-('Oscar', 'Harris', 'oscar.harris@gmail.com', 'password', 'UX/UI Designer', false, true, '2024-07-05'),
-('Paul', 'Martin', 'paul.martin@gmail.com', 'password', 'Financial Analyst', true, false, '2024-07-10'),
-('Quinn', 'Scott', 'quinn.scott@gmail.com', 'password', 'Marketing Consultant', false, true, '2024-07-15'),
-('Rachel', 'Adams', 'rachel.adams@gmail.com', 'password', 'Digital Marketer', true, false, '2024-07-20'),
-('Sam', 'King', 'sam.king@gmail.com', 'password', 'Music Producer', false, true, '2024-07-25')
-
-;
+INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_mentee, is_mentor, signup_date, bio, goals) VALUES
+('John', 'Doe', 'johndoe@gmail.com', 'password', 'Web Developer', false, true, '2024-01-01', 'Aspiring full-stack developer.', 'Learn React and Node.js.'),
+('Jane', 'Doe', 'janedoe@gmail.com', 'password', 'Guitar Instructor', true, false, '2024-02-24', 'Professional guitar teacher.', 'Improve teaching methods.'),
+('Kate', 'Wilson', 'kate.wilson@gmail.com', 'password', 'Entrepreneur', true, true, '2024-06-15', 'Startup founder.', 'Expand business network.'),
+('Luke', 'Young', 'luke.young@gmail.com', 'password', 'Software Developer', true, false, '2024-06-20', 'Passionate about coding.', 'Contribute to open-source projects.'),
+('Mia', 'Moore', 'mia.moore@gmail.com', 'password', 'Personal Trainer', false, true, '2024-06-25', 'Fitness enthusiast.', 'Help clients achieve their goals.'),
+('Oscar', 'Harris', 'oscar.harris@gmail.com', 'password', 'UX/UI Designer', false, true, '2024-07-05', 'Designing user-friendly interfaces.', 'Learn more about user research.'),
+('Paul', 'Martin', 'paul.martin@gmail.com', 'password', 'Financial Analyst', true, false, '2024-07-10', 'Analyzing financial data.', 'Get certified in financial analysis.'),
+('Quinn', 'Scott', 'quinn.scott@gmail.com', 'password', 'Marketing Consultant', false, true, '2024-07-15', 'Helping businesses grow.', 'Develop a new marketing strategy.'),
+('Rachel', 'Adams', 'rachel.adams@gmail.com', 'password', 'Digital Marketer', true, false, '2024-07-20', 'Expert in online marketing.', 'Increase social media presence.'),
+('Sam', 'King', 'sam.king@gmail.com', 'password', 'Music Producer', false, true, '2024-07-25', 'Creating music for various artists.', 'Produce an album.');
 
 
 INSERT INTO categories (name) VALUES
@@ -140,9 +138,9 @@ INSERT INTO userSubcategories (subcategory_id, user_id, is_mentor, is_mentee) VA
 (2, 6, FALSE, TRUE),  
 (3, 7, TRUE, FALSE), 
 (4, 7, FALSE, TRUE),  
-(5, 8, TRUE, FALSE),  
+(5, 8, TRUE, FALSE), 
 (6, 8, FALSE, TRUE),  
-(7, 9, TRUE, FALSE),  
+(7, 9, TRUE, FALSE), 
 (8, 9, FALSE, TRUE),  
 (9, 10, TRUE, FALSE), 
 (10, 10, FALSE, TRUE)
@@ -155,3 +153,10 @@ VALUES
 (1, 2, 1, 'My mentor’s guidance in software testing made all the difference. They helped me improve my testing strategies, leading to more efficient and bug-free code.', 1),
 (2, 1, 2, 'The mentorship in management was phenomenal! I gained confidence in my leadership abilities and received practical tips for better team management.', 1),
 (1, 2, 1, 'Learning how to optimize databases was a game-changer for my web development projects. My mentor’s advice on best practices helped me improve performance and scalability.', 1);
+
+INSERT INTO user_links (user_id, link) VALUES
+(1, 'https://linkedin.com/in/johndoe'),
+(1, 'https://twitter.com/johndoe'),
+(2, 'https://linkedin.com/in/janedoe'),
+(3, 'https://linkedin.com/in/katewilson'),
+(4, 'https://linkedin.com/in/lukeyoung');

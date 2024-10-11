@@ -166,7 +166,7 @@ const generateMatchesForUser = async (user_id) => {
     }
 };
 
-console.log(generateMatchesForUser(1))
+// console.log(generateMatchesForUser(1))
 
 module.exports = {
     fetchAllUsers,

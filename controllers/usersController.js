@@ -135,10 +135,10 @@ users.delete('/:id', authenticateToken, async (req, res) => {
 });
 
 // UPDATE
-users.put('/:id', authenticateToken, checkFirstName, checkLastName, validateEmail, async (req, res) => {
+users.put('/:id', /*authenticateToken,*/ checkFirstName, checkLastName, validateEmail, async (req, res) => {
   const { id } = req.params;
 
-  if (req.user.id !== id) {
+  if (req.body.id !== id) {
     return res.status(403).json({ error: 'Unauthorized access' });
  }
  
@@ -147,6 +147,47 @@ users.put('/:id', authenticateToken, checkFirstName, checkLastName, validateEmai
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(404).json({ error: error });
+  }
+});
+
+// Add these imports at the top
+const {
+  getUserLinks,
+  createUserLink,
+  deleteUserLink,
+} = require('../queries/userLinks.js');
+
+// Get user links
+users.get('/:id/links', async (req, res) => {
+  const { id } = req.params;
+  const links = await getUserLinks(id);
+  if (links) {
+    res.status(200).json(links);
+  } else {
+    res.status(404).json({ error: 'No links found for this user' });
+  }
+});
+
+// Create a new user link
+users.post('/:id/links', async (req, res) => {
+  const { id } = req.params;
+  const { link } = req.body;
+  try {
+    const newLink = await createUserLink(id, link);
+    res.status(201).json(newLink);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create link' });
+  }
+});
+
+// Delete a user link
+users.delete('/:id/links/:linkId', async (req, res) => {
+  const { id, linkId } = req.params;
+  try {
+    const deletedLink = await deleteUserLink(linkId);
+    res.status(200).json({ message: 'Link deleted successfully', deletedLink });
+  } catch (error) {
+    res.status(404).json({ error: 'Link not found' });
   }
 });
 

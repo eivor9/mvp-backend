@@ -27,7 +27,9 @@ CREATE TABLE users (
     job_title TEXT,
     is_mentee BOOLEAN,
     is_mentor BOOLEAN,
-    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    bio TEXT,
+    goals TEXT
 );
 
 CREATE TABLE categories (
@@ -113,4 +115,10 @@ CREATE TABLE testimonials (
     body TEXT NOT NULL,
     category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE user_links (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    link TEXT NOT NULL
 );
