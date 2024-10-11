@@ -21,13 +21,27 @@ const getUser = async (id) => {
   }
 };
 
+// Check if email exists
+const checkEmailExists = async (email) => {
+  try {
+    const user = await db.oneOrNone('SELECT * FROM users WHERE email=$1', [email]);
+    return user !== null; // Return true if user exists, false otherwise
+  } catch (error) {
+    return false; // Return false on error
+  }
+};
+
 // CREATE
 const createUser = async (user) => {
   try {
+    const emailExists = await checkEmailExists(user.email);
+    if (emailExists) {
+      throw new Error('Email already exists'); // Throw an error if email exists
+    }
 
-    const { username, email, password_hash } = user
-    const salt = 10
-    const hash = await bcrypt.hash(password_hash, salt)
+    const { username, email, password_hash } = user;
+    const salt = 10;
+    const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
       'INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_mentee, is_mentor, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
       [
@@ -43,7 +57,7 @@ const createUser = async (user) => {
     );
     return newUser;
   } catch (error) {
-    return error;
+    return error; 
   }
 };
 
@@ -100,11 +114,21 @@ const logInUser = async (user) => {
   }
 }
 
+const getUserByEmail = async (email) => {
+  try {
+    const user = await db.oneOrNone('SELECT * FROM users WHERE email=$1', [email]);
+    return user; // Returns user if found, otherwise null
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUser,
   createUser,
   deleteUser,
   updateUser,
-  logInUser
+  logInUser,
+  getUserByEmail, // Export the new function
 };

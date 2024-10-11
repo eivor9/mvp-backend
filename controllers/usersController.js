@@ -14,7 +14,8 @@ const {
   createUser,
   deleteUser,
   updateUser,
-  logInUser
+  logInUser,
+  getUserByEmail
 } = require('../queries/users.js');
 
 // validations
@@ -117,7 +118,7 @@ users.post('/login', async (req, res) => {
 })
 
 // DELETE
-users.delete('/:id', authenticateToken, async (req, res) => {
+users.delete('/:id', /*authenticateToken,*/ async (req, res) => {
   const { id } = req.params;
 
   if (req.user.id !== id) {
@@ -188,6 +189,22 @@ users.delete('/:id/links/:linkId', async (req, res) => {
     res.status(200).json({ message: 'Link deleted successfully', deletedLink });
   } catch (error) {
     res.status(404).json({ error: 'Link not found' });
+  }
+});
+
+// Check if email exists
+users.post('/check-email', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await getUserByEmail(email); // Call the function to check email
+    if (user) {
+      return res.status(200).json({ exists: true }); // Email exists
+    }
+    return res.status(404).json({ exists: false }); // Email does not exist
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
