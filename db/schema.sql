@@ -17,19 +17,27 @@ DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS testimonials;
 
-
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    job_title TEXT,
-    is_mentee BOOLEAN,
+    id SERIEL PRIMARY KEY,
+    name TEXT NOT NULL,
+    bio VARCHAR (255) NOT NULL,
     is_mentor BOOLEAN,
-    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    bio TEXT,
-    goals TEXT
+    job_title TEXT,
+    skills TEXT[],
+    backgroundColor TEXT,
+    email TEXT UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE mentees (
+    id SERIEL PRIMARY KEY,
+    name TEXT NOT NULL,
+    bio VARCHAR (255) NOT NULL,
+    job_title TEXT,
+    skills TEXT[],
+    backgroundColor TEXT,
+    email TEXT UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE categories (
