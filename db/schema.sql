@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS testimonials;
 
 CREATE TABLE users (
-    id SERIEL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     bio VARCHAR (255) NOT NULL,
     is_mentor BOOLEAN,
@@ -26,7 +26,8 @@ CREATE TABLE users (
     skills TEXT[],
     backgroundColor TEXT,
     email TEXT UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE mentees (

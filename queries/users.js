@@ -39,19 +39,20 @@ const createUser = async (user) => {
       throw new Error('Email already exists'); // Throw an error if email exists
     }
 
-    const { username, email, password_hash } = user;
+    const { name, email, password_hash } = user;
     const salt = 10;
     const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
-      'INSERT INTO users (first_name, last_name, email, password_hash, job_title, is_mentee, is_mentor, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      'INSERT INTO users (name, bio, is_mentor, job_title, skills, backgroundColor, email, password_hash, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
       [
-        user.first_name,
-        user.last_name,
+        user.name,
+        user.bio,
+        user.is_mentor,
+        user.job_title,
+        user.skills,
+        user.backgroundColor,
         user.email,
         hash,
-        user.job_title,
-        user.is_mentee,
-        user.is_mentor,
         user.signup_date,
       ]
     );
@@ -76,15 +77,16 @@ const deleteUser = async (id) => {
 const updateUser = async (user, id) => {
   try {
     const updatedUser = await db.one(
-      'UPDATE users SET first_name=$1, last_name=$2, email=$3, password_hash=$4, job_title=$5, is_mentee=$6, is_mentor=$7, signup_date=$8 WHERE id=$9 RETURNING *',
+      'UPDATE users SET name=$1, bio=$2, is_mentor=$3, job_title=$4, skills=$5, backgroundColor=$6, email=$7, password_hash=$8, signup_date=$9 WHERE id=$10 RETURNING *',
       [
-        user.first_name,
-        user.last_name,
+        user.name,
+        user.bio,
+        user.is_mentor,
+        user.job_title,
+        user.skills,
+        user.backgroundColor,
         user.email,
         user.password_hash,
-        user.job_title,
-        user.is_mentee,
-        user.is_mentor,
         user.signup_date,
         id,
       ]

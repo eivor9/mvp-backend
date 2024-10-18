@@ -20,8 +20,7 @@ const {
 
 // validations
 const {
-  checkFirstName,
-  checkLastName,
+  checkName,
   validateEmail,
 } = require('../validations/userValidations.js');
 
@@ -73,7 +72,7 @@ users.get('/:id', async (req, res) => {
 
 
 // CREATE
-users.post('/', checkFirstName, checkLastName, validateEmail, async (req, res) => {
+users.post('/', checkName, validateEmail, async (req, res) => {
   try {
     const newUser = await createUser(req.body);
     const token = jwt.sign({ id: newUser.id, email:newUser.email }, secret);
@@ -136,7 +135,7 @@ users.delete('/:id', /*authenticateToken,*/ async (req, res) => {
 });
 
 // UPDATE
-users.put('/:id', /*authenticateToken,*/ checkFirstName, checkLastName, validateEmail, async (req, res) => {
+users.put('/:id', /*authenticateToken,*/ checkName, validateEmail, async (req, res) => {
   const { id } = req.params;
 
   if (req.body.id !== id) {

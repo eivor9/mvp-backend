@@ -1,17 +1,11 @@
 //validate first name
-const checkFirstName = (req, res, next) => {
-    const { first_name } = req.body;
-    if (!first_name || typeof first_name !== 'string') {
-      return res.status(400).json({ error: 'First name is required and must be a string' });
-    }
-    next();
-  };
-
-  // Validate last name
-const checkLastName = (req, res, next) => {
-    const { last_name } = req.body;
-    if (!last_name || typeof last_name !== 'string') {
-      return res.status(400).json({ error: 'Last name is required and must be a string' });
+const checkName = (req, res, next) => {
+    const { name } = req.body;
+    if (name ) {
+      const nameParts = name.trim().split(/\s+/);
+      if (nameParts.length < 2) {
+        return res.status(400).json({ error: 'Please enter your first and last name' });
+      }
     }
     next();
   };
@@ -27,7 +21,6 @@ const validateEmail = (req, res, next) => {
   };
 
   module.exports = {
-    checkFirstName,
-    checkLastName,
+    checkName,
     validateEmail,
   };
