@@ -30,17 +30,6 @@ CREATE TABLE users (
     signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE mentees (
-    id SERIEL PRIMARY KEY,
-    name TEXT NOT NULL,
-    bio VARCHAR (255) NOT NULL,
-    job_title TEXT,
-    skills TEXT[],
-    backgroundColor TEXT,
-    email TEXT UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name TEXT
