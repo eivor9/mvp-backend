@@ -15,8 +15,7 @@ const {
 const {
   checkMentorId,
   checkMenteeId,
-  checkCategoryId,
-  checkSubcategoryId,
+  checkSkillId,
 } = require('../validations/connectionValidations.js')
 
 // AUTHENTICATION
@@ -62,7 +61,7 @@ connections.get('/:id', authenticateToken, async (req, res) => {
 });
 
 // CREATE
-connections.post('/', authenticateToken, checkMentorId, checkMenteeId, checkCategoryId, checkSubcategoryId, async (req, res) => {
+connections.post('/', authenticateToken, checkMentorId, checkMenteeId, checkSkillId, async (req, res) => {
   try {
     const newConnection = await createConnection(req.body);
     res.status(200).json(newConnection);
@@ -72,7 +71,7 @@ connections.post('/', authenticateToken, checkMentorId, checkMenteeId, checkCate
 });
 
 // UPDATE
-connections.put('/:id', authenticateToken, checkMentorId, checkMenteeId, checkCategoryId, checkSubcategoryId, async (req, res) => {
+connections.put('/:id', authenticateToken, checkMentorId, checkMenteeId, checkSkillId, async (req, res) => {
   const { id } = req.params;
   try {
     const updatedConnection = await updateConnection(id, req.body);

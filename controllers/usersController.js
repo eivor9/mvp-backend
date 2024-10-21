@@ -15,7 +15,8 @@ const {
   deleteUser,
   updateUser,
   logInUser,
-  getUserByEmail
+  getUserByEmail,
+  getUsersBySkill
 } = require('../queries/users.js');
 
 // validations
@@ -70,6 +71,16 @@ users.get('/:id', async (req, res) => {
   }
 });
 
+// GET MENTORS BY SKILL ID
+users.get('/mentors/:skillId', async (req, res) => {
+  const { skillId } = req.params;
+  const mentors = await getUsersBySkill(skillId);
+  if(mentors) {
+    res.status(200).json(mentors);
+  } else {
+    res.status(404).json({ error: 'no mentors found'})
+  }
+})
 
 // CREATE
 users.post('/', checkName, validateEmail, async (req, res) => {
@@ -101,9 +112,9 @@ users.post('/login', async (req, res) => {
     res.status(200).json({
       user: {
         id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        name: user.name,
         email: user.email,
+        bio: user.bio,
         job_title: user.job_title,
         is_mentee: user.is_mentee,
         is_mentor: user.is_mentor,

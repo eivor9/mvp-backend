@@ -3,6 +3,8 @@
 const db = require('../db/dbConfig.js');
 const bcrypt = require('bcrypt')
 
+const { getAllSkills } = require ('../queries/skills.js')
+
 const getAllUsers = async () => {
   try {
     const allUsers = await db.any('SELECT * FROM users');
@@ -11,6 +13,8 @@ const getAllUsers = async () => {
     return error;
   }
 };
+
+
 
 const getUser = async (id) => {
   try {
@@ -43,14 +47,14 @@ const createUser = async (user) => {
     const salt = 10;
     const hash = await bcrypt.hash(password_hash, salt);
     const newUser = await db.one(
-      'INSERT INTO users (name, bio, is_mentor, job_title, skills, backgroundColor, email, password_hash, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+      'INSERT INTO users (name, bio, is_mentor, job_title, skills, background_color, email, password_hash, signup_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
       [
         user.name,
         user.bio,
         user.is_mentor,
         user.job_title,
         user.skills,
-        user.backgroundColor,
+        user.background_color,
         user.email,
         hash,
         user.signup_date,
@@ -77,14 +81,14 @@ const deleteUser = async (id) => {
 const updateUser = async (user, id) => {
   try {
     const updatedUser = await db.one(
-      'UPDATE users SET name=$1, bio=$2, is_mentor=$3, job_title=$4, skills=$5, backgroundColor=$6, email=$7, password_hash=$8, signup_date=$9 WHERE id=$10 RETURNING *',
+      'UPDATE users SET name=$1, bio=$2, is_mentor=$3, job_title=$4, skills=$5, background_color=$6, email=$7, password_hash=$8, signup_date=$9 WHERE id=$10 RETURNING *',
       [
         user.name,
         user.bio,
         user.is_mentor,
         user.job_title,
         user.skills,
-        user.backgroundColor,
+        user.background_color,
         user.email,
         user.password_hash,
         user.signup_date,
@@ -125,6 +129,26 @@ const getUserByEmail = async (email) => {
   }
 };
 
+const getUsersBySkill = async (skillId) => {
+    const skills = {
+      1: 'JavaScript',
+      2: 'HTML',
+      3: 'CSS',
+      4: 'SQL',
+      5: 'Web Development',
+      6: 'Technical Interview Prep',
+      7: 'Behavioral Interview Prep'
+    }
+    
+   const skillName = skills[skillId];
+  try {
+    const users = await db.any ('SELECT * FROM users WHERE skills @> ARRAY[$1]', [skillName])
+    return users;
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUser,
@@ -133,4 +157,5 @@ module.exports = {
   updateUser,
   logInUser,
   getUserByEmail, // Export the new function
+  getUsersBySkill
 };

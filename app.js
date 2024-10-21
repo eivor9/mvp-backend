@@ -21,21 +21,21 @@ const usersController = require("./controllers/usersController.js");
 app.use("/users", usersController);
 
 // CATEGORIES
-const categoriesController = require("./controllers/categoriesController.js");
-app.use("/categories", categoriesController);
+// const skillsController = require("./controllers/categoriesController.js");
+// app.use("/categories", categoriesController);
 
 // CategoryUsers
-const categoryUsersController = require("./controllers/categoryUsersController.js");
-app.use("/category-users", categoryUsersController);
+// const categoryUsersController = require("./controllers/categoryUsersController.js");
+// app.use("/category-users", categoryUsersController);
 
 // subcategory users
-const userSubcategoriesController = require("./controllers/userSubcategoriesController.js")
-app.use("/subcategory-users", userSubcategoriesController);
+// const userSubcategoriesController = require("./controllers/userSubcategoriesController.js")
+// app.use("/subcategory-users", userSubcategoriesController);
 
 // Other imports...
 //testimonials
-const testimonialsController = require("./controllers/testimonialsController.js");
-app.use("/testimonials", testimonialsController);
+// const testimonialsController = require("./controllers/testimonialsController.js");
+// app.use("/testimonials", testimonialsController);
 
 // 404 PAGE
 app.get("*", (req, res) => {

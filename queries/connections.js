@@ -31,12 +31,11 @@ const createConnection = async (connection) => {
   try {
     const status = connection.status || "pending"
     const newConnection = await db.one(
-      'INSERT INTO connections (mentor_id, mentee_id, category_id, subcategory_id, status) VALUES($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO connections (mentor_id, mentee_id, skill_id, status) VALUES($1, $2, $3, $4) RETURNING *',
       [
         connection.mentor_id,
         connection.mentee_id,
-        connection.category_id,
-        connection.subcategory_id,
+        connection.skill_id,
         status
       ]
     );
@@ -51,16 +50,14 @@ const updateConnection = async (id, connection) => {
     const {
       mentor_id,
       mentee_id,
-      category_id,
-      subcategory_id,
+      skill_id,
       status
     } = connection
-    const updatedConnection = await db.one("UPDATE connections SET  mentor_id=$1, mentee_id=$2, category_id=$3, subcategory_id=$4, status=$5 WHERE id=$6 RETURNING *",
+    const updatedConnection = await db.one("UPDATE connections SET  mentor_id=$1, mentee_id=$2, skill_id=$3,  status=$4 WHERE id=$5 RETURNING *",
     [
       mentor_id,
       mentee_id,
-      category_id,
-      subcategory_id,
+      skill_id,
       status,
       id
     ])
