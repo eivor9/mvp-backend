@@ -42,11 +42,16 @@ connections.use(
 connections.get('/', authenticateToken, async (req, res) => {
   const { user_id } = req.params
   const connections = await getConnections(user_id);
-  if (connections.length) {
-    res.status(200).json(connections);
-  } else {
-    res.status(500).json({ error: 'server error' });
+  try {
+    if (connections.length > 0) {
+       res.status(200).json(connections);
+    } else {
+      res.status(200).json([])
+    }
+  } catch {
+      res.status(500).json({ error: 'server error' });
   }
+  
 });
 
 // SHOW

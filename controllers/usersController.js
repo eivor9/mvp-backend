@@ -16,7 +16,9 @@ const {
   updateUser,
   logInUser,
   getUserByEmail,
-  getUsersBySkill
+  getUsersBySkill,
+  getConnectedMenteeDetailsByMentorId,
+  getConnectionDetailsByUserId
 } = require('../queries/users.js');
 
 // validations
@@ -60,6 +62,32 @@ users.get('/:id/recent-assignments', async(req, res) => {
   }
 })
 
+// GET ALL CONNECTION DETAILS BY USER ID
+users.get('/:id/connection-details', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const connections = await getConnectionDetailsByUserId(id)
+    if(connections.length > 0) {
+      res.status(200).json(connections)
+    } else {
+      res.status(200).json([])
+    }
+  } catch (error) {
+      res.status(404).json({ error: "server error"})
+  }
+})
+
+// GET CONNECTED MENTEES BY MENTOR/USER ID
+users.get('/:id/mentees', async (req, res) => {
+  const { id } = req.params;
+  const mentees = await getConnectedMenteeDetailsByMentorId(id);
+  if(mentees) {
+    res.status(200).json(mentees)
+  } else {
+    res.status(400).json({error: "server error"})
+  }
+})
+
 // SHOW
 users.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -74,12 +102,17 @@ users.get('/:id', async (req, res) => {
 // GET MENTORS BY SKILL ID
 users.get('/mentors/:skillId', async (req, res) => {
   const { skillId } = req.params;
-  const mentors = await getUsersBySkill(skillId);
-  if(mentors) {
-    res.status(200).json(mentors);
-  } else {
-    res.status(404).json({ error: 'no mentors found'})
+  try {
+     const mentors = await getUsersBySkill(skillId);
+    if(mentors.length > 0) {
+      res.status(200).json(mentors);
+    } else {
+      res.status(200).json([])
+    }
+  } catch {
+      res.status(404).json({ error: 'no mentors found'})
   }
+ 
 })
 
 // CREATE

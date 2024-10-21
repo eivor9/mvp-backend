@@ -139,11 +139,31 @@ const getUsersBySkill = async (skillId) => {
       6: 'Technical Interview Prep',
       7: 'Behavioral Interview Prep'
     }
-    
+
    const skillName = skills[skillId];
   try {
     const users = await db.any ('SELECT * FROM users WHERE skills @> ARRAY[$1]', [skillName])
     return users;
+  } catch (error) {
+    return error;
+  }
+}
+
+
+const getConnectedMenteeDetailsByMentorId = async (userId) => {
+  try{
+    const connections = await db.any(`SELECT users.*, c.id AS connection_id, c.skill_id, c.status FROM connections c JOIN users ON users.id = c.mentee_id JOIN skills ON skills.id = c.skill_id WHERE c.mentor_id = $1`, [userId]);
+    return connections;
+  } catch (error) {
+    return error;
+  }
+}
+
+const getConnectionDetailsByUserId = async (userId) => {
+  try {
+    const connections = await db.any ('SELECT users.*, c.id AS connection_id, skills.name AS skill_name, c.status FROM connections c JOIN users ON users.id = c.mentee_id OR users.id = c.mentor_id JOIN skills ON skills.id = c.skill_id WHERE c.mentor_id = $1 OR c.mentee_id = $1',[userId])
+    const filteredConnections = connections.filter(connection => connection.id != userId)
+    return filteredConnections;
   } catch (error) {
     return error;
   }
@@ -157,5 +177,7 @@ module.exports = {
   updateUser,
   logInUser,
   getUserByEmail, // Export the new function
-  getUsersBySkill
+  getUsersBySkill,
+  getConnectedMenteeDetailsByMentorId,
+  getConnectionDetailsByUserId
 };
