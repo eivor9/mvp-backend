@@ -9,6 +9,7 @@ const {
   createMetric,
   deleteMetric,
   updateMetric,
+  getMetricsByConnectionAndSkillId,
 } = require('../queries/metrics');
 
 //validations
@@ -27,6 +28,17 @@ metrics.get('/all', async (req, res) => {
     res.status(500).json({ error: 'server error' });
   }
 });
+
+// GET METRICS BY CONNECTION_ID AND SKILL_ID 
+metrics.get('/:skill_id', async (req, res) => {
+  const { connection_id, skill_id } = req.params;
+  const allMetrics = await getMetricsByConnectionAndSkillId(connection_id, skill_id)
+  if(allMetrics) {
+    res.status(200).json(allMetrics);
+  } else {
+    res.status(500).json({ error: 'server error'})
+  }
+})
 
 // SHOW
 metrics.get('/:id', async (req, res) => {

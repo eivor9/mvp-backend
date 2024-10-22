@@ -14,6 +14,16 @@ const getAllMetrics = async (connection_id) => {
   }
 };
 
+// GET METRICS BY CONNECTION_ID AND SKILL_ID
+const getMetricsByConnectionAndSkillId = async (connection_id, skill_id) => {
+  try {
+    const metrics = await db.any('SELECT * FROM metrics WHERE connection_id=$1 AND skill_id=$2',[connection_id, skill_id]);
+    return metrics;
+  } catch (error) {
+    return error;
+  }
+}
+
 const getMetric = async (id) => {
   try {
     const metrics = await db.one(
@@ -28,13 +38,14 @@ const getMetric = async (id) => {
 };
 
 const createMetric = async (metric) => {
-  const { name, progress } = metric;
+  const { name, progress, skill_id, connection_id } = metric;
+  console.log(metric)
   try {
     const newMetric = await db.one(
-      'INSERT INTO metrics (name, progress) VALUES($1, $2) RETURNING *',
-      [name, progress]
+      'INSERT INTO metrics (name, progress, skill_id, connection_id) VALUES($1, $2, $3, $4) RETURNING *',
+      [name, progress, skill_id, connection_id]
     );
-    // console.log(newMetric)
+    
     return newMetric;
   } catch (error) {
     return error;
@@ -74,4 +85,5 @@ module.exports = {
   createMetric,
   deleteMetric,
   updateMetric,
+  getMetricsByConnectionAndSkillId,
 };

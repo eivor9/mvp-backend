@@ -43,6 +43,7 @@ CREATE TABLE connections (
 CREATE TABLE metrics (
     id SERIAL PRIMARY KEY,
     name TEXT,
+    skill_id INTEGER REFERENCES skills (ID) ON DELETE CASCADE,
     progress INTEGER CHECK (progress >= 0 AND progress <= 100),
     connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE
 );

@@ -13,7 +13,8 @@ const {
     getOneAssignment,
     createAssignment,
     deleteAssignment,
-    updateAssignment
+    updateAssignment,
+    getAssignmentsByConnectionIdAndMetricId
 } = require('../queries/assignments')
 
 //Validations
@@ -41,6 +42,21 @@ assignments.get("/", async (req, res) => {
     }
     
 });
+
+//GET ASSIGNMENTS BY METRIC_ID  AND CONNECTION_ID
+assignments.get('/metric/:metric_id', async(req, res) => {
+    const { connection_id, metric_id } = req.params;
+    try {
+        const assignments = await getAssignmentsByConnectionIdAndMetricId(connection_id, metric_id);
+        if(assignments) {
+            res.status(200).json(assignments);
+        } else {
+            res.status(404).json({ error: "No assignments found"})
+        }
+    } catch (error) {
+        res.status(500).json({ error: "server error" })
+    }
+})
 
 // SHOW - get one assignment by assignment id
 assignments.get("/:id", async (req, res) => {

@@ -10,6 +10,16 @@ const getAllAssignments = async (connectionId) => {
   }
 };
 
+// GET ASSIGNMENTS BY CONNECTION ID AND METRIC ID
+const getAssignmentsByConnectionIdAndMetricId = async(connectionId, metricId) => {
+  try {
+    const allAssignments = await db.any('SELECT * FROM assignments WHERE connection_id=$1 AND metric_id=$2',[connectionId, metricId])
+    return allAssignments;
+  } catch (error) {
+    return error;
+  }
+};
+
 const getOneAssignment = async (id) => {
   try {
     const assignment = await db.one("SELECT * FROM assignments WHERE id=$1", [id]);
@@ -82,4 +92,11 @@ const updateAssignment = async (id, assignment) => {
   }
 };
 
-module.exports = { getAllAssignments, getOneAssignment, createAssignment, deleteAssignment, updateAssignment };
+module.exports = { 
+  getAllAssignments,
+  getOneAssignment,
+  createAssignment,
+  deleteAssignment,
+  updateAssignment,
+  getAssignmentsByConnectionIdAndMetricId
+};
