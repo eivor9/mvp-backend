@@ -176,7 +176,7 @@ users.delete('/:id', /*authenticateToken,*/ async (req, res) => {
 users.put('/:id', /*authenticateToken,*/ checkName, validateEmail, async (req, res) => {
   const { id } = req.params;
 
-  if (req.body.id !== id) {
+  if (req.body.id != id) {
     return res.status(403).json({ error: 'Unauthorized access' });
  }
  

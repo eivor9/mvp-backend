@@ -79,9 +79,10 @@ const deleteUser = async (id) => {
 };
 
 const updateUser = async (user, id) => {
+  console.log(user);
   try {
     const updatedUser = await db.one(
-      'UPDATE users SET name=$1, bio=$2, is_mentor=$3, job_title=$4, skills=$5, background_color=$6, email=$7, password_hash=$8, signup_date=$9 WHERE id=$10 RETURNING *',
+      'UPDATE users SET name=$1, bio=$2, is_mentor=$3, job_title=$4, skills=$5, background_color=$6, email=$7, linkedin=$8 WHERE id=$9 RETURNING *',
       [
         user.name,
         user.bio,
@@ -90,8 +91,7 @@ const updateUser = async (user, id) => {
         user.skills,
         user.background_color,
         user.email,
-        user.password_hash,
-        user.signup_date,
+        user.linkedin,
         id,
       ]
     );
