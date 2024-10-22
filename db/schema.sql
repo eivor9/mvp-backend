@@ -55,6 +55,5 @@ CREATE TABLE assignments (
     metric_id INTEGER REFERENCES metrics(id) ON DELETE CASCADE,
     due_date DATE,
     is_completed BOOLEAN,
-    submission TEXT,
     connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE
 );

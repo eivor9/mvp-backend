@@ -27,16 +27,9 @@ const {
 // INDEX - get all assignments associated with a connection by connection_id
 assignments.get("/", async (req, res) => {
     const { connection_id } = req.params;
-
     try {
         const assignments = await getAllAssignments(connection_id);
-        const connection = await getOneConnection(connection_id);
-
-        if (connection.id) {
-            res.status(200).json({ ...connection, assignments });
-        } else {
-            res.status(500).json({ error: "Connection not found"});
-        }
+        res.status(200).json(assignments);
     } catch (error) {
         res.status(500).json({ error: "server error" });
     }
@@ -80,11 +73,9 @@ assignments.get("/:id", async (req, res) => {
 
 // CREATE - create an assignment for a connection using connection_id
 assignments.post("/", checkName, checkConnectionId, checkMetricId, async (req, res) => {
-    const { connection_id } = req.params;
-    const body = req.body;
-
+    console.log(req.body);
     try{
-        const assignment = await createAssignment({ ...body, connection_id});
+        const assignment = await createAssignment(req.body);
         res.status(201).json(assignment);
     } catch (error) {
         res.status(400).json({ error: error });
@@ -111,13 +102,9 @@ assignments.delete("/:id", async (req, res) => {
 
 // UPDATE - update an assignment
 assignments.put("/:id", checkName, checkConnectionId, checkMetricId, async (req, res) => {
-
     const { id } = req.params;
-    const body = req.body;
-
     try {
-        const updatedAssignment = await updateAssignment(id, { ...body });
-        
+        const updatedAssignment = await updateAssignment(id, req.body);
         if (updatedAssignment) {
             res.status(200).json(updatedAssignment);
         } else {

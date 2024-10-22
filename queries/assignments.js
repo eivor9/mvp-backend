@@ -3,7 +3,7 @@ const db = require("../db/dbConfig.js");
 
 const getAllAssignments = async (connectionId) => {
   try {
-    const allAssignments = await db.any ("SELECT * FROM assignments WHERE connection_id=$1", [connectionId]);
+    const allAssignments = await db.any("SELECT * FROM assignments WHERE connection_id=$1", [connectionId]);
     return allAssignments;
   } catch (error) {
     return error;
@@ -31,16 +31,15 @@ const getOneAssignment = async (id) => {
 
 // CREATE
 const createAssignment = async (assignment) => {
+  console.log("assignment:", assignment)
   try {
-    const newAssignment = await db.one("INSERT INTO assignments (name, body, metric_id, target_date, is_submitted, submission, rating, connection_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+    const newAssignment = await db.one("INSERT INTO assignments (name, body, metric_id, due_date, is_completed, connection_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         [
             assignment.name,
             assignment.body,
             assignment.metric_id,
-            assignment.target_date,
-            assignment.is_submitted,
-            assignment.submission,
-            assignment.rating,
+            assignment.due_date,
+            assignment.is_completed,
             assignment.connection_id
         ]
         );
@@ -73,17 +72,15 @@ const deleteAssignment = async (id) => {
 
 const updateAssignment = async (id, assignment) => {
   try {
-      const updatedAssignment = await db.one("UPDATE assignments SET name=$1, body=$2, metric_id=$3, target_date=$4, is_submitted=$5, submission=$6, rating=$7, connection_id=$8 WHERE id=$9 RETURNING *",
+      const updatedAssignment = await db.one("UPDATE assignments SET name=$1, body=$2, metric_id=$3, due_date=$4, is_completed=$5, connection_id=$6 WHERE id=$7 RETURNING *",
         [
-            assignment.name,
-            assignment.body,
-            assignment.metric_id,
-            assignment.target_date,
-            assignment.is_submitted,
-            assignment.submission,
-            assignment.rating,
-            assignment.connection_id,
-            id
+          assignment.name,
+          assignment.body,
+          assignment.metric_id,
+          assignment.due_date,
+          assignment.is_completed,
+          assignment.connection_id,
+          id
         ]
         );
         return updatedAssignment;
