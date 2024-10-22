@@ -144,14 +144,8 @@ users.post('/login', async (req, res) => {
 
     res.status(200).json({
       user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        bio: user.bio,
-        job_title: user.job_title,
-        is_mentee: user.is_mentee,
-        is_mentor: user.is_mentor,
-        signup_date: user.signup_date,
+        ...user,
+        password_hash: null
       },
       token
     })
