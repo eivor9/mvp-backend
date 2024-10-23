@@ -162,7 +162,7 @@ const getConnectedMenteeDetailsByMentorId = async (userId) => {
 const getConnectionDetailsByUserId = async (userId) => {
   try {
     const connections = await db.any ('SELECT users.*, c.id AS connection_id, skills.name AS skill_name, c.status FROM connections c JOIN users ON users.id = c.mentee_id OR users.id = c.mentor_id JOIN skills ON skills.id = c.skill_id WHERE c.mentor_id = $1 OR c.mentee_id = $1',[userId])
-    const filteredConnections = connections.filter(connection => connection.id != userId)
+    const filteredConnections = connections.filter(connection => connection.id != userId);
     return filteredConnections;
   } catch (error) {
     return error;
