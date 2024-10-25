@@ -47,13 +47,14 @@ const createConnection = async (connection) => {
 
 const updateConnection = async (id, connection) => {
   try {
-    const { mentor_id,mentee_id, skill_id, status} = connection
-    const updatedConnection = await db.one("UPDATE connections SET  mentor_id=$1, mentee_id=$2, skill_id=$3,  status=$4 WHERE id=$5 RETURNING *",
+    const { mentor_id,mentee_id, skill_id, status, zoom} = connection;
+    const updatedConnection = await db.one("UPDATE connections SET  mentor_id=$1, mentee_id=$2, skill_id=$3, status=$4, zoom=$5 WHERE id=$6 RETURNING *",
     [
       mentor_id,
       mentee_id,
       skill_id,
       status,
+      zoom,
       id
     ])
     return updatedConnection;

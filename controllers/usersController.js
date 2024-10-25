@@ -121,18 +121,22 @@ users.post('/', checkName, validateEmail, async (req, res) => {
     const newUser = await createUser(req.body);
     const token = jwt.sign({ id: newUser.id, email:newUser.email }, secret);
     
-    //separate password from the return object to avoid sending
-    const { password_hash, ...userWithoutPassword } = newUser;
+    if(newUser.id) {
+      //separate password from the return object to avoid sending
+      const { password_hash, ...userWithoutPassword } = newUser;
 
-    res.status(201).json({ user: userWithoutPassword, token });
+      res.status(201).json({ user: userWithoutPassword, token });
+    } else {
+      res.status(200).json({error: "An account with this email already exists"});
+    }
   } catch (error) {
+    console.log(error, "hell nah")
     res.status(500).json({ error: 'user not created' });
   }
 });
 
 //LOG IN ROUTE
 users.post('/login', async (req, res) => {
-  console.log(req.body)
   try {
     const user = await logInUser(req.body);
     if(!user) {

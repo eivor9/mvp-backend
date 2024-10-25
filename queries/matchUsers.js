@@ -43,7 +43,6 @@ const getSubcategoriesWhereUserIsMentee = (userSubcategories) => {
 const fetchAllUsers = async () => {
     try {
         const users = await db.any("SELECT * FROM users");
-        console.log("all Users:", users)
         return users;
     } catch (error) {
         console.error('Error fetching all users:', error);

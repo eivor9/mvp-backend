@@ -73,8 +73,8 @@ assignments.get("/:id", async (req, res) => {
 
 // CREATE - create an assignment for a connection using connection_id
 assignments.post("/", checkName, checkConnectionId, checkMetricId, async (req, res) => {
-    console.log(req.body);
-    try{
+
+   try{
         const assignment = await createAssignment(req.body);
         res.status(201).json(assignment);
     } catch (error) {

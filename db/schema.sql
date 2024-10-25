@@ -36,6 +36,7 @@ CREATE TABLE connections (
     mentor_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     mentee_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     skill_id INTEGER REFERENCES skills (id) ON DELETE CASCADE,
+    zoom TEXT,
     status TEXT DEFAULT 'pending'
 );
 

@@ -7,7 +7,6 @@ const db = require('../db/dbConfig.js');
 const getAllMetrics = async (connection_id) => {
   try {
     const allMetrics = await db.any('SELECT * FROM metrics WHERE connection_id=$1', [connection_id]);
-    // console.log(allMetrics);
     return allMetrics;
   } catch (error) {
     return error;
@@ -30,7 +29,6 @@ const getMetric = async (id) => {
       'SELECT * FROM metrics WHERE id=$1',
       id
     );
-    console.log(metrics);
     return metrics;
   } catch (error) {
     return error;
@@ -39,7 +37,6 @@ const getMetric = async (id) => {
 
 const createMetric = async (metric) => {
   const { name, progress, skill_id, connection_id } = metric;
-  console.log(metric)
   try {
     const newMetric = await db.one(
       'INSERT INTO metrics (name, progress, skill_id, connection_id) VALUES($1, $2, $3, $4) RETURNING *',
@@ -58,7 +55,6 @@ const deleteMetric = async (id) => {
       'DELETE FROM metrics WHERE id=$1 RETURNING *',
       id
     );
-    // console.log(deleteMetric)
     return deletedMetric;
   } catch (error) {
     return error;
@@ -72,7 +68,6 @@ const updateMetric = async (id, metric) => {
       'UPDATE metrics SET name=$1, progress=$2 WHERE id=$3 RETURNING *',
       [name, progress, id]
     );
-    // console.log(updatedMetric)
     return updatedMetric;
   } catch (error) {
     return error;

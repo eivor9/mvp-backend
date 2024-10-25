@@ -60,7 +60,10 @@ const createUser = async (user) => {
         user.signup_date,
       ]
     );
-    return newUser;
+    if (newUser.id)
+      return newUser;
+    else
+      return new Error("email already exists")
   } catch (error) {
     return error; 
   }
@@ -79,7 +82,6 @@ const deleteUser = async (id) => {
 };
 
 const updateUser = async (user, id) => {
-  console.log(user);
   try {
     const updatedUser = await db.one(
       'UPDATE users SET name=$1, bio=$2, is_mentor=$3, job_title=$4, skills=$5, background_color=$6, email=$7, linkedin=$8 WHERE id=$9 RETURNING *',

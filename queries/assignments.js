@@ -31,7 +31,6 @@ const getOneAssignment = async (id) => {
 
 // CREATE
 const createAssignment = async (assignment) => {
-  console.log("assignment:", assignment)
   try {
     const newAssignment = await db.one("INSERT INTO assignments (name, body, metric_id, due_date, is_completed, connection_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         [
