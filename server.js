@@ -1,7 +1,9 @@
 // server.js
 
 // DEPENDENCIES
+const http = require('http');
 const app = require("./app.js");
+const { initializeSocket } = require('./socketServer.js');
 
 // CONFIGURATION
 require("dotenv").config();
