@@ -179,13 +179,20 @@ users.delete('/:id', /*authenticateToken,*/ async (req, res) => {
 // UPDATE
 users.put('/:id', /*authenticateToken,*/ checkName, validateEmail, async (req, res) => {
   const { id } = req.params;
-
-  if (req.body.id != id) {
+  if (req.body.id != id) 
     return res.status(403).json({ error: 'Unauthorized access' });
- }
- 
+
   try {
     const updatedUser = await updateUser(req.body, id);
+    const token = jwt.sign({ id: user.id, email: user.email }, secret)
+
+    res.status(200).json({
+      user: {
+        ...updatedUser,
+        password_hash: null
+      },
+      token
+    })
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(404).json({ error: error });
