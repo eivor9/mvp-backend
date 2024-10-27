@@ -47,10 +47,10 @@ const metricsController = require('./metricsController.js');
 connections.use('/:connection_id/metrics', metricsController);
 
 // CONVERSATIONS
-const conversationsController = require('./conversationsController.js');
+const messagesController = require('./messagesController.js');
 connections.use(
-  '/:connection_id/conversations',
-  conversationsController
+  '/:connection_id/messages',
+  messagesController
 );
 
 // INDEX

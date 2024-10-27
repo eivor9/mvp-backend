@@ -1,12 +1,12 @@
 // queries/messages.js
 const db = require('../db/dbConfig.js');
 
-// Get all messages for a specific conversation
-const getAllMessages = async (conversation_id) => {
+// Get all messages for a specific connection
+const getAllMessages = async (connection_id) => {
   try {
     const messages = await db.any(
-      'SELECT * FROM messages WHERE conversation_id=$1',
-      conversation_id
+      'SELECT * FROM messages WHERE connection_id=$1 ORDER BY time_sent',
+      connection_id
     );
     return messages;
   } catch (error) {
@@ -31,13 +31,12 @@ const getOneMessage = async (id) => {
 const createMessage = async (message) => {
   try {
     const newMessage = await db.one(
-      'INSERT INTO messages (body, time_sent, sender_id, recipient_id, conversation_id) VALUES($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO messages (body, sender_id, recipient_id, connection_id) VALUES($1, $2, $3, $4) RETURNING *',
       [
         message.body,
-        message.time_sent,
         message.sender_id,
         message.recipient_id,
-        message.conversation_id,
+        message.connection_id,
       ]
     );
     return newMessage;
@@ -63,8 +62,8 @@ const deleteMessage = async (id) => {
 const updateMessage = async (id, updatedMessage) => {
   try {
     const message = await db.one(
-      'UPDATE messages SET body=$1, time_sent=$2 WHERE id=$3 RETURNING *',
-      [updatedMessage.body, updatedMessage.time_sent, id]
+      'UPDATE messages SET body=$1 WHERE id=$2 RETURNING *',
+      [updatedMessage.body, id]
     );
     return message;
   } catch (error) {

@@ -16,19 +16,26 @@ const {
   checkBody,
   checkSenderId,
   checkRecipientId,
-  checkConversationId,
+  checkConnectionId,
 } = require("../validations/messagesValidations.js")
 
 // INDEX - Get all messages for a conversation
 messages.get('/', async (req, res) => {
-  const { conversation_id } = req.params;
-  const messagesList = await getAllMessages(conversation_id);
-  if (messagesList.length) {
-    res.status(200).json(messagesList);
-  } else {
-    res
-      .status(404)
-      .json({ error: 'No messages found' });
+
+  const { connection_id } = req.params;
+
+  try{
+    const messagesList = await getAllMessages(connection_id);
+    if (messagesList.length) {
+      res.status(200).json(messagesList);
+    } else {
+      res
+        .status(404)
+        .json({ error: 'No messages found' });
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: "server error"})
   }
 });
 
@@ -46,10 +53,10 @@ messages.get('/:id', async (req, res) => {
 });
 
 // CREATE - Create a new message
-messages.post('/',  checkBody, checkSenderId, checkRecipientId, checkConversationId, async (req, res) => {
+messages.post('/',  checkBody, checkSenderId, checkRecipientId, checkConnectionId, async (req, res) => {
   try {
     const newMessage = await createMessage(req.body);
-    res.status(200).json(newMessage);
+    res.status(201).json(newMessage);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -72,7 +79,7 @@ messages.delete('/:id', async (req, res) => {
 });
 
 // UPDATE - Update a message
-messages.put('/:id', async (req, res) => {
+messages.put('/:id', checkBody, async (req, res) => {
   const { id } = req.params;
   try {
     const updatedMessage = await updateMessage(id, req.body);

@@ -26,10 +26,10 @@ const checkBody = (req, res, next) => {
   };
   
   // Validate conversation_id
-  const checkConversationId = (req, res, next) => {
-    const { conversation_id } = req.body;
-    if (!conversation_id || typeof conversation_id !== 'number') {
-      return res.status(400).json({ error: 'conversation_id is required and must be a number' });
+  const checkConnectionId = (req, res, next) => {
+    const { connection_id } = req.body;
+    if (!connection_id || typeof connection_id !== 'number') {
+      return res.status(400).json({ error: 'connection_id is required and must be a number' });
     }
     next();
   };
@@ -38,5 +38,5 @@ const checkBody = (req, res, next) => {
     checkBody,
     checkSenderId,
     checkRecipientId,
-    checkConversationId,
+    checkConnectionId,
   };

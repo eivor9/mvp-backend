@@ -60,11 +60,11 @@ CREATE TABLE assignments (
 );
 
 CREATE TABLE messages (
-    message_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     connection_id INTEGER REFERENCES connections(id) ON DELETE CASCADE,
     sender_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     recipient_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
-    message_text TEXT NOT NULL,
-    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    body TEXT NOT NULL,
+    time_sent TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status TEXT DEFAULT 'unread'
 );
