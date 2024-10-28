@@ -26,7 +26,7 @@ messages.get('/', async (req, res) => {
 
   try{
     const messagesList = await getAllMessages(connection_id);
-    if (messagesList.length) {
+    if (messagesList) {
       res.status(200).json(messagesList);
     } else {
       res
@@ -54,8 +54,14 @@ messages.get('/:id', async (req, res) => {
 
 // CREATE - Create a new message
 messages.post('/',  checkBody, checkSenderId, checkRecipientId, checkConnectionId, async (req, res) => {
+  
+  const io = req.app.get('io');
+
   try {
     const newMessage = await createMessage(req.body);
+
+    io.to(req.body.connection_id).emit('receiveMessage', newMessage);
+
     res.status(201).json(newMessage);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -81,8 +87,10 @@ messages.delete('/:id', async (req, res) => {
 // UPDATE - Update a message
 messages.put('/:id', checkBody, async (req, res) => {
   const { id } = req.params;
+  const io = req.app.get('io')
   try {
     const updatedMessage = await updateMessage(id, req.body);
+    io.to(req.body.connection_id).emit('receiveMessage', updatedMessage);
     res.status(200).json(updatedMessage);
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -14,6 +14,9 @@ const PORT = process.env.PORT;
 const httpServer = http.createServer(app);
 const io = initializeSocket(httpServer);
 
+//attach io to app for use in messages controllers
+app.set('io', io);
+
 // LISTEN
 httpServer.listen(PORT, () => {
   console.log(`🎧 Listening on port ${PORT} 🎧 `);
