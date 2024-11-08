@@ -184,7 +184,7 @@ users.put('/:id', /*authenticateToken,*/ checkName, validateEmail, async (req, r
 
   try {
     const updatedUser = await updateUser(req.body, id);
-    const token = jwt.sign({ id: user.id, email: user.email }, secret)
+    const token = jwt.sign({ id: updatedUser.id, email: updatedUser.email }, secret)
 
     res.status(200).json({
       user: {
@@ -193,7 +193,6 @@ users.put('/:id', /*authenticateToken,*/ checkName, validateEmail, async (req, r
       },
       token
     })
-    res.status(200).json(updatedUser);
   } catch (error) {
     res.status(404).json({ error: error });
   }
