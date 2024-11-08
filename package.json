@@ -31,7 +31,7 @@
     ],
     "testEnvironment": "node",
     "verbose": true,
-    "collectCoverage": true,
+    "collectCoverage": false,
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
