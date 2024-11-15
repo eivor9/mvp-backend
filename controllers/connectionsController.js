@@ -16,7 +16,7 @@ const {
 const skillsMetrics = {
   1: ["Introduction to JavaScript and Its Foundations", "Control Flow and Functions", "Objects, Arrays, and DOM Manipulation"],
   2: ["Introduction to HTML Basics", "Building Structure and Forms", "Advanced HTML Features and Best Practices"],
-  3: ["Fundamentals and Styling Basics", "Layout Techniques and Positioning", "Responsive Design and Advanced Features"],
+  3: ["Responsive Design and Advanced Features", "Fundamentals and Styling Basics", "Layout Techniques and Positioning"],
   4: ["Introduction to SQL and Basic Queries", "Working with Data: Inserting, Updating and Deleting", "Advanced Queries and Database Management"],
   5: ["Intro to Web Dev and Frontend Basics", "Backend Dev and Server-Side Programming", "Full-Stack Dev and Deployment"],
   6: ["Key Concepts and Skills", "Problem-Solving Techniques", "Advanced Topics and System Design"],

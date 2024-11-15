@@ -162,9 +162,9 @@ users.post('/login', async (req, res) => {
 users.delete('/:id', /*authenticateToken,*/ async (req, res) => {
   const { id } = req.params;
 
-  if (req.user.id !== id) {
-    return res.status(403).json({ error: 'Unauthorized access' });
- }
+//   if (req.user.id !== id) {
+//     return res.status(403).json({ error: 'Unauthorized access' });
+//  }
 
   const deletedUser = await deleteUser(id);
   if (deletedUser.id) {
